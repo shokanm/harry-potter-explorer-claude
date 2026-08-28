@@ -4,10 +4,11 @@ import { FavoritesList } from "@/components/FavoritesList";
 import { PageHeader } from "@/components/PageHeader";
 import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Избранное",
-  description: "Отложенные персонажи. Хранятся в браузере и никуда не отправляются.",
-};
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.favorites.title, description: t.meta.favorites };
+}
 
 export default async function FavoritesPage() {
   const { lang, t } = await getDict();

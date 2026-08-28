@@ -5,10 +5,11 @@ import { SortingHatQuiz } from "@/components/SortingHatQuiz";
 import { SORTING_QUESTIONS } from "@/lib/content/sorting-hat";
 import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Распределяющая шляпа",
-  description: "Семь вопросов, и Шляпа назовёт ваш факультет собственным голосом.",
-};
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.sortingHat.title, description: t.meta.sortingHat };
+}
 
 export default async function SortingHatPage() {
   const { lang, t } = await getDict();

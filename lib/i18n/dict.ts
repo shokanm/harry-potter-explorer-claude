@@ -199,6 +199,14 @@ export const DICT = {
       snapshot: "локальный снапшот",
       hint: "Приложение читает из первого доступного слоя: Supabase → hp-api → снапшот в репозитории.",
     },
+    meta: {
+      characters: "Каталог персонажей вселенной Гарри Поттера с поиском и фильтрами.",
+      houses: "Гриффиндор, Слизерин, Когтевран и Пуффендуй: цвета, символика и основатели.",
+      spells: "77 заклинаний волшебного мира с описаниями и разделами.",
+      artifacts: "Дары Смерти, крестражи и реликвии Хогвартса — собственный курируемый каталог.",
+      sortingHat: "Семь вопросов, и Шляпа назовёт ваш факультет собственным голосом.",
+      favorites: "Отложенные персонажи. Хранятся в браузере и никуда не отправляются.",
+    },
     footer: {
       built: "Учебный проект для конкурса nFactorial AI Engineering",
       data: "Данные о персонажах и заклинаниях",
@@ -395,6 +403,14 @@ export const DICT = {
       upstream: "hp-api directly",
       snapshot: "local snapshot",
       hint: "The app reads from the first available layer: Supabase → hp-api → snapshot in the repo.",
+    },
+    meta: {
+      characters: "A searchable, filterable catalogue of Harry Potter characters.",
+      houses: "Gryffindor, Slytherin, Ravenclaw and Hufflepuff: colours, symbols and founders.",
+      spells: "77 spells of the wizarding world, with descriptions and sections.",
+      artifacts: "Deathly Hallows, Horcruxes and Hogwarts relics — a hand-curated catalogue.",
+      sortingHat: "Seven questions, and the Hat names your house in its own voice.",
+      favorites: "Characters you set aside. Kept in your browser and never sent anywhere.",
     },
     footer: {
       built: "A student project for the nFactorial AI Engineering contest",

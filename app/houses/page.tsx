@@ -7,10 +7,11 @@ import { HOUSES } from "@/lib/content/houses";
 import { getCharacters } from "@/lib/data-source";
 import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Факультеты",
-  description: "Гриффиндор, Слизерин, Когтевран и Пуффендуй: цвета, символика и основатели.",
-};
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.houses.title, description: t.meta.houses };
+}
 
 export default async function HousesPage() {
   const { lang, t } = await getDict();

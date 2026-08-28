@@ -5,10 +5,11 @@ import { PageHeader } from "@/components/PageHeader";
 import { ARTIFACTS, ARTIFACT_CATEGORIES } from "@/lib/content/artifacts";
 import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Артефакты",
-  description: "Дары Смерти, крестражи и реликвии Хогвартса — собственный курируемый каталог.",
-};
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.artifacts.title, description: t.meta.artifacts };
+}
 
 export default async function ArtifactsPage() {
   const { lang, t } = await getDict();

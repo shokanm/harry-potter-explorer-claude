@@ -21,9 +21,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const house = houseBySlug(slug);
   if (!house) return {};
+  const { lang } = await getDict();
   return {
-    title: house.name.ru,
-    description: house.description.ru,
+    title: house.name[lang],
+    description: house.description[lang],
   };
 }
 

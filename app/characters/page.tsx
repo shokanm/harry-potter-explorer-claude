@@ -8,11 +8,6 @@ import { selectCharacters, type CharacterFilters } from "@/lib/fuzzy";
 import { getDict } from "@/lib/i18n/server";
 import { toPublicList } from "@/lib/serialize";
 
-export const metadata: Metadata = {
-  title: "Персонажи",
-  description: "Каталог персонажей вселенной Гарри Поттера с поиском и фильтрами.",
-};
-
 const PAGE_SIZE = 24;
 
 function readFilters(params: Record<string, string | string[] | undefined>): CatalogFilters {
@@ -39,6 +34,12 @@ function readFilters(params: Record<string, string | string[] | undefined>): Cat
  * с результатами, а не пустую сетку, которая заполнится после гидратации.
  * Дальше подгрузкой занимается клиент через /api/characters.
  */
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.characters.title, description: t.meta.characters };
+}
+
 export default async function CharactersPage({
   searchParams,
 }: {

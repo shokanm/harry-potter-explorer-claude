@@ -6,10 +6,11 @@ import { SpellBook } from "@/components/SpellBook";
 import { getSpells } from "@/lib/data-source";
 import { getDict } from "@/lib/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Заклинания",
-  description: "77 заклинаний волшебного мира с описаниями и разделами.",
-};
+/** Заголовок вкладки тоже переводится — язык берётся из той же cookie. */
+export async function generateMetadata(): Promise<Metadata> {
+  const { t } = await getDict();
+  return { title: t.spells.title, description: t.meta.spells };
+}
 
 export default async function SpellsPage() {
   const { t } = await getDict();
