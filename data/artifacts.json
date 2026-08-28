@@ -1,0 +1,548 @@
+[
+  {
+    "slug": "elder-wand",
+    "name": {
+      "ru": "Бузинная палочка",
+      "en": "The Elder Wand"
+    },
+    "category": "hallow",
+    "owner": {
+      "ru": "Антиох Певерелл → … → Дамблдор → Драко Малфой → Гарри Поттер",
+      "en": "Antioch Peverell → … → Dumbledore → Draco Malfoy → Harry Potter"
+    },
+    "firstSeen": {
+      "ru": "«Дары Смерти»",
+      "en": "Deathly Hallows"
+    },
+    "description": {
+      "ru": "Самая мощная палочка в истории: бузина, сердечная жила дракона, 15 дюймов. Не проигрывает дуэлей — и именно поэтому оставляет за собой след из трупов прежних владельцев.",
+      "en": "The most powerful wand ever made: elder wood, Thestral tail hair, fifteen inches. It does not lose duels — which is exactly why it leaves a trail of dead owners behind it."
+    },
+    "lore": {
+      "ru": "Палочка подчиняется не тому, кто её держит, а тому, кто обезоружил прежнего хозяина. Дамблдора убил Снегг, но обезоружил Драко — поэтому власть над палочкой ушла к мальчику, который никогда её в руках не держал.",
+      "en": "The wand answers not to whoever holds it but to whoever disarmed the previous master. Snape killed Dumbledore, but Draco disarmed him — so mastery passed to a boy who never once held it."
+    },
+    "danger": 5,
+    "sigil": "│"
+  },
+  {
+    "slug": "resurrection-stone",
+    "name": {
+      "ru": "Воскрешающий камень",
+      "en": "The Resurrection Stone"
+    },
+    "category": "hallow",
+    "owner": {
+      "ru": "Кадм Певерелл → род Мраксов → Волан-де-Морт → Гарри Поттер",
+      "en": "Cadmus Peverell → the Gaunts → Voldemort → Harry Potter"
+    },
+    "firstSeen": {
+      "ru": "«Дары Смерти»",
+      "en": "Deathly Hallows"
+    },
+    "description": {
+      "ru": "Чёрный камень, возвращающий тени умерших. Они приходят — но не оживают, и от этого больнее, чем от разлуки.",
+      "en": "A black stone that returns the shades of the dead. They come — but they do not live, and that hurts more than the parting did."
+    },
+    "lore": {
+      "ru": "Волан-де-Морт вставил камень в перстень Мраксов и сделал крестражем, ни разу не догадавшись, что держит в руках Дар Смерти. Он искал бессмертия — и не узнал вещь, побеждающую смерть, потому что ему в голову не приходило звать мёртвых обратно.",
+      "en": "Voldemort set the stone in the Gaunt ring and made it a Horcrux, never once realising he held a Hallow. He hunted immortality — and failed to recognise the thing that defeats death, because it never occurred to him to call the dead back."
+    },
+    "danger": 3,
+    "sigil": "●"
+  },
+  {
+    "slug": "invisibility-cloak",
+    "name": {
+      "ru": "Мантия-невидимка",
+      "en": "The Cloak of Invisibility"
+    },
+    "category": "hallow",
+    "owner": {
+      "ru": "Игнотус Певерелл → род Поттеров → Гарри Поттер",
+      "en": "Ignotus Peverell → the Potters → Harry Potter"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Единственная мантия, которая не изнашивается и не выцветает. Обычные наводят чары невидимости — эта прячет по-настоящему, включая от заклинания Homenum Revelio и от глаз Смерти.",
+      "en": "The only cloak that never frays and never fades. Ordinary ones carry a charm that wears off — this one hides in earnest, even from Homenum Revelio and from Death's own eyes."
+    },
+    "lore": {
+      "ru": "Самый скромный из трёх Даров оказался единственным, чей владелец умер в своей постели глубоким стариком. Игнотус снял мантию сам и передал сыну — единственный из братьев, кто выиграл.",
+      "en": "The humblest of the three Hallows was the only one whose owner died old and in his own bed. Ignotus took the cloak off himself and handed it to his son — the only brother who won."
+    },
+    "danger": 0,
+    "sigil": "△"
+  },
+  {
+    "slug": "riddles-diary",
+    "name": {
+      "ru": "Дневник Тома Реддла",
+      "en": "Tom Riddle's Diary"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Том Реддл → Люциус Малфой → Джинни Уизли",
+      "en": "Tom Riddle → Lucius Malfoy → Ginny Weasley"
+    },
+    "firstSeen": {
+      "ru": "«Тайная комната»",
+      "en": "Chamber of Secrets"
+    },
+    "description": {
+      "ru": "Первый крестраж, созданный в шестнадцать лет после убийства Миртл. Единственный, который умел разговаривать и переубеждать: он не просто хранил душу, он вербовал.",
+      "en": "The first Horcrux, made at sixteen after Myrtle's murder. The only one that could talk back and persuade: it did not merely store a soul, it recruited."
+    },
+    "lore": {
+      "ru": "Уничтожен клыком василиска — Гарри проткнул дневник в Тайной комнате в двенадцать лет, не понимая, что делает. На тот момент это была четверть всех крестражей Волан-де-Морта, убранная случайно.",
+      "en": "Destroyed with a basilisk fang — Harry stabbed it in the Chamber at twelve, with no idea what he was doing. At that point it was a sixth of Voldemort's soul, removed by accident."
+    },
+    "danger": 5,
+    "sigil": "▤"
+  },
+  {
+    "slug": "gaunt-ring",
+    "name": {
+      "ru": "Перстень Мраксов",
+      "en": "Marvolo Gaunt's Ring"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Род Мраксов → Волан-де-Морт → Дамблдор",
+      "en": "The House of Gaunt → Voldemort → Dumbledore"
+    },
+    "firstSeen": {
+      "ru": "«Принц-полукровка»",
+      "en": "Half-Blood Prince"
+    },
+    "description": {
+      "ru": "Фамильный перстень с чёрным камнем — одновременно крестраж и Воскрешающий камень. Два самых важных магических предмета эпохи в одном кольце.",
+      "en": "A family ring set with a black stone — a Horcrux and the Resurrection Stone at once. The two most consequential magical objects of the age in a single band."
+    },
+    "lore": {
+      "ru": "Дамблдор надел его, зная о проклятии: он хотел увидеть родителей и сестру. Это стоило ему руки, а через год — жизни. Самый умный волшебник века один раз позволил себе быть просто человеком.",
+      "en": "Dumbledore put it on knowing it was cursed: he wanted to see his parents and his sister. It cost him a hand, and within the year, his life. The cleverest wizard of the age allowed himself to be merely human, once."
+    },
+    "danger": 5,
+    "sigil": "◎"
+  },
+  {
+    "slug": "slytherin-locket",
+    "name": {
+      "ru": "Медальон Слизерина",
+      "en": "Slytherin's Locket"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Салазар Слизерин → Меропа Мракс → Волан-де-Морт → Р.А.Б. → Долорес Амбридж",
+      "en": "Salazar Slytherin → Merope Gaunt → Voldemort → R.A.B. → Dolores Umbridge"
+    },
+    "firstSeen": {
+      "ru": "«Принц-полукровка»",
+      "en": "Half-Blood Prince"
+    },
+    "description": {
+      "ru": "Тяжёлый золотой медальон с изумрудной «S». Носящему нашёптывает худшее, что тот о себе думает, — Рон под ним чуть не бросил друзей.",
+      "en": "A heavy gold locket with an emerald S. It whispers to the wearer the worst thing they believe about themselves — under it, Ron nearly abandoned his friends."
+    },
+    "lore": {
+      "ru": "Регулус Блэк подменил его собственноручно, зная, что не вернётся из пещеры, и оставил внутри записку. Пожиратель смерти, о котором никто не думал, сделал первый шаг к падению Волан-де-Морта — за восемнадцать лет до финала.",
+      "en": "Regulus Black swapped it himself, knowing he would not come back from the cave, and left a note inside. A Death Eater nobody thought about took the first step towards Voldemort's fall — eighteen years before the end."
+    },
+    "danger": 5,
+    "sigil": "◈"
+  },
+  {
+    "slug": "hufflepuff-cup",
+    "name": {
+      "ru": "Чаша Пуффендуй",
+      "en": "Hufflepuff's Cup"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Пенелопа Пуффендуй → Хепзиба Смит → Волан-де-Морт → сейф Лестрейнджей",
+      "en": "Helga Hufflepuff → Hepzibah Smith → Voldemort → the Lestrange vault"
+    },
+    "firstSeen": {
+      "ru": "«Принц-полукровка»",
+      "en": "Half-Blood Prince"
+    },
+    "description": {
+      "ru": "Маленькая золотая чаша с двумя ручками и выгравированным барсуком. Лежала в самом глубоком сейфе «Гринготтса» под чарами умножения: тронешь — содержимое сейфа начнёт множиться и раздавит вора.",
+      "en": "A small gold cup with two handles and an engraved badger. It sat in the deepest Gringotts vault under a Gemino curse: touch anything and the vault's contents multiply until they crush the thief."
+    },
+    "lore": {
+      "ru": "Уничтожена Гермионой клыком василиска — но принесла клык Рону не она, а он сам вспомнил про Тайную комнату. И заодно впервые в жизни заговорил на парселтанге, повторив звук по памяти.",
+      "en": "Destroyed by Hermione with a basilisk fang — but it was Ron who thought of the Chamber, and Ron who spoke Parseltongue for the only time in his life, reproducing a sound from memory."
+    },
+    "danger": 5,
+    "sigil": "♆"
+  },
+  {
+    "slug": "ravenclaw-diadem",
+    "name": {
+      "ru": "Диадема Когтевран",
+      "en": "Ravenclaw's Diadem"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Кандида Когтевран → Елена Когтевран → Волан-де-Морт",
+      "en": "Rowena Ravenclaw → Helena Ravenclaw → Voldemort"
+    },
+    "firstSeen": {
+      "ru": "«Дары Смерти»",
+      "en": "Deathly Hallows"
+    },
+    "description": {
+      "ru": "Венец, дарующий мудрость носящему. Тысячу лет считался утерянным — и всё это время лежал в Выручай-комнате Хогвартса, в двух шагах от каждого, кто её искал.",
+      "en": "A circlet said to grant wisdom to the wearer. Lost for a thousand years — and all that time it lay in Hogwarts' Room of Requirement, a few steps from everyone who searched for it."
+    },
+    "lore": {
+      "ru": "Волан-де-Морт гордился тем, что спрятал крестраж там, где не искал никто. Но Серая Дама рассказала Гарри правду за один разговор — потому что за тысячу лет её впервые вежливо попросили.",
+      "en": "Voldemort prided himself on hiding a Horcrux where no one would look. The Grey Lady told Harry the truth in a single conversation — because in a thousand years, he was the first to ask her politely."
+    },
+    "danger": 5,
+    "sigil": "♁"
+  },
+  {
+    "slug": "nagini",
+    "name": {
+      "ru": "Нагайна",
+      "en": "Nagini"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Волан-де-Морт",
+      "en": "Voldemort"
+    },
+    "firstSeen": {
+      "ru": "«Кубок огня»",
+      "en": "Goblet of Fire"
+    },
+    "description": {
+      "ru": "Единственный живой крестраж, созданный сознательно. Змея была не питомцем, а сосудом — и Волан-де-Морт держал её при себе, чем и выдал.",
+      "en": "The only living Horcrux made on purpose. The snake was not a pet but a vessel — and Voldemort kept her close, which is precisely what gave her away."
+    },
+    "lore": {
+      "ru": "Нагайна была не змеёй, а маледиктусом — женщиной, которую проклятие крови необратимо заперло в теле животного. Крестражем стало то, что когда-то было человеком.",
+      "en": "Nagini was not a snake but a Maledictus — a woman whom a blood curse locked irreversibly into an animal body. The Horcrux was made of something that had once been a person."
+    },
+    "danger": 5,
+    "sigil": "∿"
+  },
+  {
+    "slug": "harry-scar",
+    "name": {
+      "ru": "Гарри Поттер",
+      "en": "Harry Potter"
+    },
+    "category": "horcrux",
+    "owner": {
+      "ru": "Никто — крестраж создан по ошибке",
+      "en": "No one — the Horcrux was made by accident"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Седьмой крестраж, о существовании которого не знал сам его создатель. Осколок души Волан-де-Морта отлетел в единственное живое существо в комнате в ночь, когда убивающее заклятие отскочило.",
+      "en": "The seventh Horcrux, whose existence its own maker never knew of. A shard of Voldemort's soul lodged in the only living thing in the room the night the Killing Curse rebounded."
+    },
+    "lore": {
+      "ru": "Отсюда парселтанг, сны и боль в шраме — не дар и не проклятие, а чужой квартирант. Гарри пошёл в лес умирать, потому что понял: убить нужно именно эту часть себя.",
+      "en": "Hence the Parseltongue, the dreams and the burning scar — neither gift nor curse but a tenant. Harry walked into the forest to die because he understood which part of himself had to go."
+    },
+    "danger": 4,
+    "sigil": "ϟ"
+  },
+  {
+    "slug": "sorting-hat",
+    "name": {
+      "ru": "Распределяющая шляпа",
+      "en": "The Sorting Hat"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Хогвартс",
+      "en": "Hogwarts"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Шляпа Годрика Гриффиндора, в которую четверо основателей вложили собственный ум, чтобы она распределяла учеников и после их смерти. Каждый сентябрь сочиняет новую песню.",
+      "en": "Godric Gryffindor's hat, into which the four founders put their own intelligence so it could sort students after they were gone. Every September it composes a new song."
+    },
+    "lore": {
+      "ru": "Шляпа учитывает выбор: Гарри просил не в Слизерин — и не попал. «Наш выбор показывает, кто мы, гораздо лучше, чем наши способности».",
+      "en": "The Hat takes choice into account: Harry asked not to be put in Slytherin — and was not. 'It is our choices that show what we truly are, far more than our abilities.'"
+    },
+    "danger": 0,
+    "sigil": "⌂"
+  },
+  {
+    "slug": "sword-of-gryffindor",
+    "name": {
+      "ru": "Меч Гриффиндора",
+      "en": "The Sword of Gryffindor"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Годрик Гриффиндор → достойные гриффиндорцы",
+      "en": "Godric Gryffindor → worthy Gryffindors"
+    },
+    "firstSeen": {
+      "ru": "«Тайная комната»",
+      "en": "Chamber of Secrets"
+    },
+    "description": {
+      "ru": "Гоблинское серебро с рубинами. Приходит к любому истинному гриффиндорцу в час нужды — из Шляпы, из замёрзшего лесного озера, откуда угодно.",
+      "en": "Goblin silver set with rubies. It comes to any true Gryffindor in a moment of need — out of the Hat, out of a frozen forest pool, out of anywhere."
+    },
+    "lore": {
+      "ru": "Гоблинская сталь впитывает лишь то, что делает её сильнее. Пропитавшись ядом василиска в двенадцать лет Гарри, меч стал одним из немногих предметов, способных уничтожить крестраж.",
+      "en": "Goblin steel imbibes only that which strengthens it. Soaked in basilisk venom when Harry was twelve, the sword became one of the few things capable of destroying a Horcrux."
+    },
+    "danger": 2,
+    "sigil": "†"
+  },
+  {
+    "slug": "mirror-of-erised",
+    "name": {
+      "ru": "Зеркало Еиналеж",
+      "en": "The Mirror of Erised"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Хогвартс",
+      "en": "Hogwarts"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Показывает не будущее и не правду, а самое глубокое желание смотрящего. Гарри видел родителей. Рон — себя старостой и капитаном.",
+      "en": "It shows neither the future nor the truth but the deepest desire of the person looking. Harry saw his parents. Ron saw himself as Head Boy and Quidditch captain."
+    },
+    "lore": {
+      "ru": "Дамблдор спрятал за ним философский камень с гениальным условием: камень достанется тому, кто хочет его найти, но не использовать. Жадность делала артефакт недосягаемым.",
+      "en": "Dumbledore hid the Philosopher's Stone behind it with an ingenious condition: the Stone would go to whoever wanted to find it but not to use it. Greed itself put the artefact out of reach."
+    },
+    "danger": 2,
+    "sigil": "▭"
+  },
+  {
+    "slug": "pensieve",
+    "name": {
+      "ru": "Омут памяти",
+      "en": "The Pensieve"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Директора Хогвартса",
+      "en": "Headmasters of Hogwarts"
+    },
+    "firstSeen": {
+      "ru": "«Кубок огня»",
+      "en": "Goblet of Fire"
+    },
+    "description": {
+      "ru": "Каменная чаша с рунами, куда сливают лишние мысли, чтобы разглядеть в них связи. Воспоминание можно пересматривать со стороны — и замечать то, что пропустил, когда был внутри.",
+      "en": "A rune-carved stone basin for siphoning off surplus thoughts and seeing the patterns in them. A memory can be revisited from outside — and you notice what you missed while you were inside it."
+    },
+    "lore": {
+      "ru": "Воспоминания в Омуте объективны, но их можно подделать: Слизнорт много лет хранил изуродованную версию разговора о крестражах, стыдясь настоящей.",
+      "en": "Pensieve memories are objective, but they can be tampered with: Slughorn kept a mutilated version of his conversation about Horcruxes for years, ashamed of the real one."
+    },
+    "danger": 1,
+    "sigil": "◡"
+  },
+  {
+    "slug": "goblet-of-fire",
+    "name": {
+      "ru": "Кубок огня",
+      "en": "The Goblet of Fire"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Турнир Трёх Волшебников",
+      "en": "The Triwizard Tournament"
+    },
+    "firstSeen": {
+      "ru": "«Кубок огня»",
+      "en": "Goblet of Fire"
+    },
+    "description": {
+      "ru": "Грубый деревянный кубок с синим пламенем — беспристрастный судья, выбирающий чемпионов. Его решение создаёт магический контракт, который нельзя расторгнуть.",
+      "en": "A rough wooden cup filled with blue flame — an impartial judge that selects the champions. Its verdict creates a magical contract that cannot be broken."
+    },
+    "lore": {
+      "ru": "Крауч-младший обманул Кубок не взломом, а логикой: заявил Хогвартс четвёртой школой, чтобы у Гарри не оказалось конкурентов. Беспристрастный судья честно выбрал единственного кандидата.",
+      "en": "Barty Crouch Jr fooled the Goblet not by force but by logic: he entered Hogwarts as a fourth school so Harry would have no competition. The impartial judge honestly picked the only candidate."
+    },
+    "danger": 3,
+    "sigil": "▽"
+  },
+  {
+    "slug": "marauders-map",
+    "name": {
+      "ru": "Карта Мародёров",
+      "en": "The Marauder's Map"
+    },
+    "category": "hogwarts",
+    "owner": {
+      "ru": "Лунатик, Бродяга, Сохатый и Хвост → Фред и Джордж → Гарри Поттер",
+      "en": "Moony, Wormtail, Padfoot and Prongs → Fred and George → Harry Potter"
+    },
+    "firstSeen": {
+      "ru": "«Узник Азкабана»",
+      "en": "Prisoner of Azkaban"
+    },
+    "description": {
+      "ru": "Полный план Хогвартса со всеми тайными ходами и точками, показывающими каждого человека в замке в реальном времени. Открывается словами «Торжественно клянусь, что замышляю шалость и только шалость».",
+      "en": "A complete plan of Hogwarts with every secret passage, and dots showing everyone in the castle in real time. It opens to 'I solemnly swear that I am up to no good'."
+    },
+    "lore": {
+      "ru": "Карта показывает истинное имя, а не облик: именно она выдала Питера Петтигрю, «погибшего» двенадцать лет назад, и Барти Крауча под личиной Грюма. Четверо школьников создали детектор, который не смог обойти ни один взрослый.",
+      "en": "The Map shows true identity, not appearance: it exposed Peter Pettigrew, 'dead' for twelve years, and Barty Crouch wearing Moody's face. Four schoolboys built a detector no adult ever beat."
+    },
+    "danger": 1,
+    "sigil": "▦"
+  },
+  {
+    "slug": "philosophers-stone",
+    "name": {
+      "ru": "Философский камень",
+      "en": "The Philosopher's Stone"
+    },
+    "category": "object",
+    "owner": {
+      "ru": "Николас Фламель",
+      "en": "Nicolas Flamel"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Кроваво-красный камень, превращающий любой металл в золото и дающий эликсир бессмертия. Единственный существующий экземпляр создал Николас Фламель, проживший шестьсот шестьдесят пять лет.",
+      "en": "A blood-red stone that turns any metal to gold and yields the Elixir of Life. The only one in existence was made by Nicolas Flamel, who lived six hundred and sixty-five years."
+    },
+    "lore": {
+      "ru": "Фламель уничтожил камень добровольно — и умер. «Для высокоорганизованного разума смерть — это всего лишь следующее большое приключение».",
+      "en": "Flamel destroyed the Stone voluntarily — and died. 'To the well-organised mind, death is but the next great adventure.'"
+    },
+    "danger": 3,
+    "sigil": "◆"
+  },
+  {
+    "slug": "time-turner",
+    "name": {
+      "ru": "Маховик времени",
+      "en": "The Time-Turner"
+    },
+    "category": "object",
+    "owner": {
+      "ru": "Отдел тайн → Гермиона Грейнджер (третий курс)",
+      "en": "The Department of Mysteries → Hermione Granger (third year)"
+    },
+    "firstSeen": {
+      "ru": "«Узник Азкабана»",
+      "en": "Prisoner of Azkaban"
+    },
+    "description": {
+      "ru": "Песочные часы на цепочке: один оборот — один час назад. Гермионе выдали такой, чтобы она успевала на все уроки сразу, — и это лучшая характеристика Гермионы.",
+      "en": "An hourglass on a chain: one turn, one hour back. Hermione was issued one so she could attend every class at once — which is the most Hermione fact in the series."
+    },
+    "lore": {
+      "ru": "Все маховики Министерства разбились в схватке в Отделе тайн, что закрыло путешествия во времени как сюжетный инструмент. Прошлое здесь нельзя переписать — можно лишь узнать, что ты в нём уже участвовал.",
+      "en": "Every Ministry Time-Turner shattered in the battle at the Department of Mysteries, closing time travel off as a plot device. The past here cannot be rewritten — you can only learn you were always part of it."
+    },
+    "danger": 4,
+    "sigil": "⧗"
+  },
+  {
+    "slug": "deluminator",
+    "name": {
+      "ru": "Делюминатор",
+      "en": "The Deluminator"
+    },
+    "category": "object",
+    "owner": {
+      "ru": "Альбус Дамблдор → Рон Уизли",
+      "en": "Albus Dumbledore → Ron Weasley"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Серебряная зажигалка, вбирающая свет из любого источника и возвращающая его обратно. Дамблдор гасил ею фонари на Тисовой улице.",
+      "en": "A silver lighter that draws light out of any source and puts it back. Dumbledore used it to snuff the lamps of Privet Drive."
+    },
+    "lore": {
+      "ru": "Дамблдор завещал его Рону, зная наперёд, что тот однажды уйдёт и захочет вернуться. Делюминатор оказался не про свет, а про дорогу назад — он передал Рону голоса друзей и привёл его к ним.",
+      "en": "Dumbledore left it to Ron, knowing in advance that he would walk away and want to come back. The Deluminator turned out to be about the road back, not about light — it carried his friends' voices to him and led him to them."
+    },
+    "danger": 0,
+    "sigil": "✧"
+  },
+  {
+    "slug": "vanishing-cabinet",
+    "name": {
+      "ru": "Исчезательный шкаф",
+      "en": "The Vanishing Cabinet"
+    },
+    "category": "object",
+    "owner": {
+      "ru": "Выручай-комната Хогвартса / «Горбин и Бэрк»",
+      "en": "Hogwarts' Room of Requirement / Borgin and Burkes"
+    },
+    "firstSeen": {
+      "ru": "«Тайная комната»",
+      "en": "Chamber of Secrets"
+    },
+    "description": {
+      "ru": "Один из пары шкафов, образующих проход между двумя точками. Работает, только пока целы оба.",
+      "en": "One of a matched pair forming a passage between two places. It works only while both halves are intact."
+    },
+    "lore": {
+      "ru": "Драко чинил его весь шестой курс — и в этом весь ужас года: пока школа жила обычной жизнью, шестнадцатилетний мальчик в одиночку строил дверь, через которую в замок вошли Пожиратели смерти.",
+      "en": "Draco spent his entire sixth year repairing it — and that is the horror of that year: while the school went about its business, a sixteen-year-old boy was quietly building the door the Death Eaters walked through."
+    },
+    "danger": 4,
+    "sigil": "▯"
+  },
+  {
+    "slug": "golden-snitch",
+    "name": {
+      "ru": "Золотой снитч",
+      "en": "The Golden Snitch"
+    },
+    "category": "object",
+    "owner": {
+      "ru": "Квиддич",
+      "en": "Quidditch"
+    },
+    "firstSeen": {
+      "ru": "«Философский камень»",
+      "en": "Philosopher's Stone"
+    },
+    "description": {
+      "ru": "Крылатый мячик размером с грецкий орех, приносящий ловцу сто пятьдесят очков и конец матча. Летает быстрее всего на поле и почти всегда решает исход игры.",
+      "en": "A walnut-sized winged ball worth a hundred and fifty points and the end of the match. It flies faster than anything else on the pitch and almost always decides the game."
+    },
+    "lore": {
+      "ru": "Снитч помнит первое прикосновение. Дамблдор спрятал в нём Воскрешающий камень, зная, что Гарри поймал свой первый снитч ртом — и откроет его только губами, в самый последний момент, когда пойдёт умирать.",
+      "en": "A Snitch remembers the first touch. Dumbledore hid the Resurrection Stone in one, knowing Harry had caught his first Snitch in his mouth — and would open it only with his lips, at the last possible moment, on his way to die."
+    },
+    "danger": 0,
+    "sigil": "◉"
+  }
+]

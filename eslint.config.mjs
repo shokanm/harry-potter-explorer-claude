@@ -13,6 +13,17 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      // Отбрасывание поля через деструктуризацию (`const { x: _x, ...rest }`) —
+      // осознанный приём, а не забытая переменная. Разрешаем его явно,
+      // потребовав подчёркивание в начале имени.
+      "@typescript-eslint/no-unused-vars": [
+        "warn",
+        { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;
