@@ -38,3 +38,19 @@ export function envOrNull(name: string): string | null {
   const trimmed = raw.trim();
   return trimmed.length > 0 ? trimmed : null;
 }
+
+/**
+ * Первое непустое значение из нескольких имён.
+ *
+ * Нужно, потому что Supabase переименовал ключи: `anon` стал
+ * `publishable` (sb_publishable_…), а `service_role` — `secret`
+ * (sb_secret_…). Новые проекты выдают только новые имена, старые
+ * продолжают жить со старыми, и приложение должно принимать оба.
+ */
+export function envFirst(names: string[]): string | null {
+  for (const name of names) {
+    const value = envOrNull(name);
+    if (value) return value;
+  }
+  return null;
+}

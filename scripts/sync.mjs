@@ -19,13 +19,17 @@ const ROOT = join(HERE, "..");
 const BASE = process.env.HP_API_BASE_URL ?? "https://hp-api.onrender.com/api";
 const BATCH = 200;
 
-function need(name) {
-  const value = process.env[name];
-  if (!value) {
-    console.error(`✘ Не задана переменная ${name}. Скопируйте .env.example в .env.local и заполните.`);
-    process.exit(1);
+/** Первое непустое значение из нескольких имён; пустая строка = не задано. */
+function need(...names) {
+  for (const name of names) {
+    const value = (process.env[name] ?? "").trim();
+    if (value) return value;
   }
-  return value;
+  console.error(
+    `✘ Не задана переменная ${names.join(" или ")}. ` +
+      `Скопируйте .env.example в .env.local и заполните.`,
+  );
+  process.exit(1);
 }
 
 /** hp-api спит на бесплатном Render — даём ему время проснуться, но не бесконечно. */
@@ -67,7 +71,9 @@ async function upsert(client, table, rows, conflictColumn) {
 
 async function main() {
   const url = need("SUPABASE_URL");
-  const key = need("SUPABASE_SERVICE_ROLE_KEY");
+  // Новое имя ключа записи — SUPABASE_SECRET_KEY; в старых проектах это
+  // SUPABASE_SERVICE_ROLE_KEY. Принимаем оба.
+  const key = need("SUPABASE_SECRET_KEY", "SUPABASE_SERVICE_ROLE_KEY");
   const client = createClient(url, key, { auth: { persistSession: false } });
 
   console.log("Загружаю данные из источника:");
