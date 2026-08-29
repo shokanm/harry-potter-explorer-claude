@@ -58,7 +58,13 @@ export async function GET(request: Request) {
                 void push();
               },
             )
-            .subscribe()
+            // Подписка поднимается пару секунд, и всё, что произошло за это
+            // время, канал не покажет. Поэтому при готовности канала состояние
+            // перечитывается: иначе первое же распределение сразу после
+            // переподключения ждало бы страховочного опроса.
+            .subscribe((status) => {
+              if (status === "SUBSCRIBED") void push();
+            })
         : null;
 
       const poll = setInterval(() => void push(), POLL_MS);

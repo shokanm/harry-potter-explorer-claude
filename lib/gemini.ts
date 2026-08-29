@@ -1,6 +1,6 @@
 import "server-only";
 
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, ThinkingLevel, type GenerateContentConfig } from "@google/genai";
 
 import { HOUSE_BY_SLUG } from "@/lib/content/houses";
 import { envNum, envSet, envStr } from "@/lib/env";
@@ -102,6 +102,78 @@ export interface StreamOptions {
   signal?: AbortSignal;
 }
 
+/**
+ * Потолок ожидания ответа модели.
+ *
+ * Обычно ответ приходит за одну-две секунды, но однажды при разработке вызов
+ * завис до самого таймаута клиента. Причину воспроизвести не удалось, и это
+ * ровно тот случай, когда защиту ставят не от известной ошибки, а от класса
+ * ошибок: на публичном стенде посетитель не должен смотреть в пустой экран
+ * минуту, что бы ни случилось на стороне модели.
+ */
+const REQUEST_TIMEOUT_MS = envNum("GEMINI_TIMEOUT_MS", 25_000);
+
+/**
+ * Сигнал отмены: срабатывает и когда посетитель закрыл вкладку,
+ * и когда модель молчит дольше отведённого.
+ */
+function withTimeout(signal: AbortSignal | undefined): { signal: AbortSignal; done: () => void } {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(new Error("gemini timeout")), REQUEST_TIMEOUT_MS);
+
+  const onAbort = () => controller.abort(signal?.reason);
+  if (signal) {
+    if (signal.aborted) controller.abort(signal.reason);
+    else signal.addEventListener("abort", onAbort, { once: true });
+  }
+
+  return {
+    signal: controller.signal,
+    done: () => {
+      clearTimeout(timer);
+      signal?.removeEventListener("abort", onAbort);
+    },
+  };
+}
+
+/**
+ * Просим модель думать поменьше: портрет отвечает парой фраз, и раздумья
+ * здесь — только задержка и лишние токены.
+ *
+ * Раньше здесь стояло `thinkingBudget: 0`, и это тихо ломало всю генерацию:
+ * модели Gemini 3.x отвечают на такой запрос 400 INVALID_ARGUMENT. Внешне
+ * это выглядело как «портрет просто молчит» — поток открывался и закрывался
+ * пустым. Поддерживаемый способ — thinkingLevel.
+ */
+const THINKING: GenerateContentConfig["thinkingConfig"] = { thinkingLevel: ThinkingLevel.MINIMAL };
+
+/**
+ * Запуск потока с откатом.
+ *
+ * Модель задаётся переменной окружения, а поля управления раздумьями
+ * у разных поколений разные: в 2.x был thinkingBudget, в 3.x — thinkingLevel.
+ * Поэтому при отказе по неподдерживаемому аргументу пробуем ещё раз без него:
+ * пусть ответ будет чуть медленнее, чем не будет вовсе.
+ */
+async function startStream(
+  contents: { role: string; parts: { text: string }[] }[],
+  config: GenerateContentConfig,
+) {
+  try {
+    return await ai().models.generateContentStream({
+      model: MODEL,
+      contents,
+      config: { ...config, thinkingConfig: THINKING },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (!/INVALID_ARGUMENT|invalid argument|400/i.test(message)) throw error;
+
+    console.warn(`[gemini] модель ${MODEL} не приняла thinkingConfig — повторяю без него`);
+    return await ai().models.generateContentStream({ model: MODEL, contents, config });
+  }
+}
+
 /** Поток ответа портрета. Отдаёт куски текста по мере генерации. */
 export async function* streamPersonaReply(
   character: Character,
@@ -114,22 +186,22 @@ export async function* streamPersonaReply(
     parts: [{ text: turn.text }],
   }));
 
-  const stream = await ai().models.generateContentStream({
-    model: MODEL,
-    contents,
-    config: {
+  const guard = withTimeout(options.signal);
+
+  try {
+    const stream = await startStream(contents, {
       systemInstruction: personaInstruction(character, lang),
       maxOutputTokens: MAX_OUTPUT_TOKENS,
       temperature: 0.95,
-      // Портрету не нужно рассуждать перед ответом — это только задержка и токены.
-      thinkingConfig: { thinkingBudget: 0 },
-      abortSignal: options.signal,
-    },
-  });
+      abortSignal: guard.signal,
+    });
 
-  for await (const chunk of stream) {
-    const text = chunk.text;
-    if (text) yield text;
+    for await (const chunk of stream) {
+      const text = chunk.text;
+      if (text) yield text;
+    }
+  } finally {
+    guard.done();
   }
 }
 
@@ -151,6 +223,10 @@ export async function* streamHatVerdict(
   const instruction = [
     "You are the Sorting Hat of Hogwarts: ancient, sharp-tongued, amused by people, and entirely certain of yourself.",
     `The decision is already made: this person belongs to ${house}. Do not question it and do not choose a different house.`,
+    // У русских переводов Гарри Поттера две традиции, и модель охотно выбирает
+    // не ту: говорит «Рэйвенкло», пока весь интерфейс говорит «Когтевран».
+    // Поэтому написание приходит готовым, а не оставляется на усмотрение модели.
+    `Write the house name in exactly this form, letter for letter: «${house}». Do not translate it differently and do not use any other spelling.`,
     "",
     "Write a short sorting speech, addressed directly to the person, in second person:",
     "- Three to five sentences.",
@@ -163,20 +239,21 @@ export async function* streamHatVerdict(
     answersSummary,
   ].join("\n");
 
-  const stream = await ai().models.generateContentStream({
-    model: MODEL,
-    contents: [{ role: "user", parts: [{ text: "Sort me." }] }],
-    config: {
+  const guard = withTimeout(options.signal);
+
+  try {
+    const stream = await startStream([{ role: "user", parts: [{ text: "Sort me." }] }], {
       systemInstruction: instruction,
       maxOutputTokens: 400,
       temperature: 1.0,
-      thinkingConfig: { thinkingBudget: 0 },
-      abortSignal: options.signal,
-    },
-  });
+      abortSignal: guard.signal,
+    });
 
-  for await (const chunk of stream) {
-    const text = chunk.text;
-    if (text) yield text;
+    for await (const chunk of stream) {
+      const text = chunk.text;
+      if (text) yield text;
+    }
+  } finally {
+    guard.done();
   }
 }

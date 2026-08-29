@@ -76,7 +76,9 @@ export async function POST(request: Request) {
     async start(controller) {
       try {
         for await (const chunk of streamHatVerdict(
-          HOUSE_BY_SLUG[house].apiName,
+          // Название на языке интерфейса, а не английское: иначе Шляпа
+          // переведёт его сама и разойдётся с подписью на экране.
+          HOUSE_BY_SLUG[house].name[lang],
           summarize(answers, lang),
           lang,
           { signal: request.signal },
