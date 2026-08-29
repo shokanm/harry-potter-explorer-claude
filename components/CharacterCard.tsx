@@ -12,13 +12,22 @@ export function CharacterCard({
   lang,
   t,
   priority = false,
+  headingLevel = 3,
 }: {
   character: PublicCharacter;
   lang: Lang;
   t: Dictionary;
   priority?: boolean;
+  /**
+   * Уровень заголовка карточки. На страницах с промежуточным разделом
+   * (главная, факультет) это h3, а там, где сетка идёт сразу под h1
+   * (каталог, избранное) — h2: пропуск уровня ломает навигацию
+   * по заголовкам в скринридере.
+   */
+  headingLevel?: 2 | 3;
 }) {
   const house = character.house ? HOUSE_BY_SLUG[character.house] : null;
+  const Heading = (headingLevel === 2 ? "h2" : "h3") as "h2" | "h3";
 
   return (
     <Link
@@ -52,9 +61,9 @@ export function CharacterCard({
         )}
 
         <div className="absolute inset-x-0 bottom-0 p-3">
-          <h3 className="font-[family-name:var(--font-display)] text-[0.98rem] leading-tight text-ink">
+          <Heading className="font-[family-name:var(--font-display)] text-[0.98rem] leading-tight text-ink">
             {character.name}
-          </h3>
+          </Heading>
           <p className="mt-1 text-xs text-muted">
             {house ? house.name[lang] : t.character.houseless}
           </p>

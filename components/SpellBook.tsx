@@ -104,9 +104,10 @@ export function SpellBook({ spells, t }: { spells: Spell[]; t: Dictionary }) {
                 className="absolute inset-y-0 left-0 w-[3px]"
                 style={{ background: TONE[spell.category] }}
               />
-              <h3 className="font-[family-name:var(--font-display)] text-lg text-ink">
+              {/* h2, а не h3: сетка идёт сразу под h1 страницы. */}
+              <h2 className="font-[family-name:var(--font-display)] text-lg text-ink">
                 {spell.name}
-              </h3>
+              </h2>
               <p className="mt-2 text-sm leading-relaxed text-muted">{spell.description}</p>
               <p
                 className="mt-3 text-[0.68rem] uppercase tracking-widest"

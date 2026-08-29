@@ -79,7 +79,7 @@ export function FavoritesList({ lang, t }: { lang: Lang; t: Dictionary }) {
         </button>
       </div>
 
-      <CharacterGrid characters={visible} lang={lang} t={t} priorityCount={5} />
+      <CharacterGrid characters={visible} lang={lang} t={t} priorityCount={5} headingLevel={2} />
     </div>
   );
 }

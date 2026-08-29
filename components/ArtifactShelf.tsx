@@ -92,9 +92,10 @@ export function ArtifactShelf({
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-[family-name:var(--font-display)] text-lg text-ink">
+                  {/* h2, а не h3: список идёт сразу под h1 страницы. */}
+                  <h2 className="font-[family-name:var(--font-display)] text-lg text-ink">
                     {artifact.name[lang]}
-                  </h3>
+                  </h2>
                   <p className="mt-0.5 text-[0.68rem] uppercase tracking-widest" style={{ color: tone }}>
                     {categories.find((c) => c.key === artifact.category)?.label[lang]}
                   </p>

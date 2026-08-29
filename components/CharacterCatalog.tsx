@@ -319,7 +319,7 @@ export function CharacterCatalog({
             </button>
           </div>
         ) : (
-          <CharacterGrid characters={items} lang={lang} t={t} priorityCount={5} />
+          <CharacterGrid characters={items} lang={lang} t={t} priorityCount={5} headingLevel={2} />
         )}
 
         {loading && (
