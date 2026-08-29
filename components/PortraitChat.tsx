@@ -109,14 +109,14 @@ export function PortraitChat({
 
   if (!available) {
     return (
-      <div className="card p-5 text-sm text-muted">
+      <div className="notice p-5 text-sm text-soft">
         <p>{t.chat.unavailable}</p>
       </div>
     );
   }
 
   return (
-    <div className="card overflow-hidden">
+    <div className="notice">
       <div
         ref={scroller}
         className="max-h-[26rem] min-h-[9rem] overflow-y-auto px-5 py-4"
@@ -125,17 +125,15 @@ export function PortraitChat({
       >
         {messages.length === 0 ? (
           <div className="py-2">
-            <p className="text-sm text-muted">{t.character.chatSubtitle}</p>
-            <p className="mt-4 text-xs uppercase tracking-widest text-faint">
-              {t.chat.suggestions}
-            </p>
+            <p className="text-[0.95rem] text-soft">{t.character.chatSubtitle}</p>
+            <p className="kicker mt-5">{t.chat.suggestions}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {suggestions.map((suggestion) => (
                 <button
                   key={suggestion}
                   type="button"
                   onClick={() => void send(suggestion)}
-                  className="rounded-full border border-line px-3 py-1.5 text-xs text-muted transition-colors hover:border-line-strong hover:text-ink"
+                  className="border border-rule px-3 py-1.5 text-left text-[0.82rem] text-soft transition-colors hover:border-ink hover:text-ink"
                 >
                   {suggestion}
                 </button>
@@ -150,20 +148,18 @@ export function PortraitChat({
                 className={message.role === "user" ? "flex justify-end" : "flex justify-start"}
               >
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                  className={`max-w-[86%] px-4 py-2.5 text-[0.95rem] leading-relaxed ${
                     message.role === "user"
-                      ? "rounded-br-sm bg-[rgba(201,162,39,0.14)] text-ink"
-                      : "rounded-bl-sm border border-line bg-bg-deep text-ink"
+                      ? "border border-rule bg-paper-deep text-ink"
+                      : "border-l-[3px] border-seal bg-paper-white pl-4 text-ink"
                   }`}
                 >
                   {message.role === "model" && (
-                    <p className="mb-1 font-[family-name:var(--font-display)] text-[0.7rem] uppercase tracking-widest text-gold">
-                      {characterName}
-                    </p>
+                    <p className="kicker mb-1">{characterName}</p>
                   )}
                   {message.text || (
-                    <span className="inline-flex items-center gap-1.5 text-muted">
-                      <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
+                    <span className="inline-flex items-center gap-1.5 text-faint">
+                      <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-seal" />
                       {t.chat.thinking}
                     </span>
                   )}
@@ -173,7 +169,7 @@ export function PortraitChat({
           </ul>
         )}
 
-        {error && <p className="mt-4 text-sm text-[#d98a6a]">{error}</p>}
+        {error && <p className="mt-4 text-sm text-seal">{error}</p>}
       </div>
 
       <form
@@ -181,7 +177,7 @@ export function PortraitChat({
           event.preventDefault();
           void send(input);
         }}
-        className="flex items-center gap-2 border-t border-line p-3"
+        className="flex items-center gap-2 border-t border-rule p-3"
       >
         <input
           value={input}
@@ -190,20 +186,18 @@ export function PortraitChat({
           maxLength={600}
           disabled={streaming}
           aria-label={t.chat.placeholder}
-          className="min-w-0 flex-1 rounded-full border border-line bg-surface px-4 py-2 text-sm text-ink outline-none transition-colors placeholder:text-faint focus:border-gold/60 disabled:opacity-60"
+          className="min-w-0 flex-1 border border-rule bg-paper px-3 py-2 text-[0.95rem] text-ink outline-none transition-colors placeholder:text-faint focus:border-seal disabled:opacity-60"
         />
         <button
           type="submit"
           disabled={streaming || !input.trim()}
-          className="seal shrink-0 !px-4 !py-2 !text-sm disabled:cursor-not-allowed disabled:opacity-40"
+          className="stamp shrink-0 disabled:cursor-not-allowed disabled:opacity-40"
         >
           {t.chat.send}
         </button>
       </form>
 
-      <p className="border-t border-line px-4 py-2.5 text-[0.7rem] leading-relaxed text-faint">
-        {t.chat.disclaimer}
-      </p>
+      <p className="caption border-t border-rule px-4 py-2.5">{t.chat.disclaimer}</p>
     </div>
   );
 }

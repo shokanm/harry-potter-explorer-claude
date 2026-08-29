@@ -7,6 +7,14 @@ import { LangToggle } from "@/components/LangToggle";
 import type { Dictionary } from "@/lib/i18n/dict";
 import type { Lang } from "@/lib/i18n/types";
 
+/**
+ * Шапка выпуска.
+ *
+ * Собрана как настоящая газетная: служебная строка с номером выпуска,
+ * название крупной антиквой по центру, под ним двойная линейка и рубрики.
+ * Рубрики разделены вертикальными штрихами, а не кнопками-таблетками —
+ * в газете нет кнопок.
+ */
 export function SiteHeader({ lang, t }: { lang: Lang; t: Dictionary }) {
   const pathname = usePathname();
 
@@ -26,52 +34,57 @@ export function SiteHeader({ lang, t }: { lang: Lang; t: Dictionary }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-[color-mix(in_srgb,var(--bg-deep)_88%,transparent)] backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
-          <span
-            aria-hidden
-            className="grid h-9 w-9 place-items-center rounded-full border border-line-strong text-gold transition-transform group-hover:rotate-12"
-          >
-            {/* Знак Даров Смерти — самая узнаваемая графика вселенной. */}
-            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.3">
-              <path d="M12 3 21.5 20H2.5L12 3Z" strokeLinejoin="round" />
-              <circle cx="12" cy="14.5" r="3.6" />
-              <path d="M12 3v17" />
-            </svg>
-          </span>
-          <span className="hidden font-[family-name:var(--font-display)] text-sm tracking-[0.14em] text-ink sm:block">
-            HP&nbsp;EXPLORER
-          </span>
-        </Link>
-
-        <nav
-          aria-label={t.nav.home}
-          // На узких экранах меню не помещается и прокручивается вбок.
-          // Маска гасит правый край, чтобы обрезанный пункт читался как
-          // «здесь есть продолжение», а не как сломанная вёрстка.
-          className="-mx-1 flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto px-1 [mask-image:linear-gradient(to_right,transparent,#000_12px,#000_calc(100%_-_28px),transparent)] [scrollbar-width:none] lg:[mask-image:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              className={`shrink-0 rounded-full px-3 py-1.5 text-[0.86rem] transition-colors ${
-                isActive(link.href)
-                  ? "bg-[rgba(201,162,39,0.14)] text-gold"
-                  : "text-muted hover:text-ink"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="shrink-0">
+    <header className="border-b border-rule-strong bg-paper">
+      {/* Служебная строка выпуска */}
+      <div className="border-b border-rule">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-1.5 sm:px-6">
+          <p className="font-[family-name:var(--font-label)] text-[0.62rem] uppercase tracking-[0.18em] text-faint">
+            {lang === "ru" ? "Выпуск особый · цена 5 кнатов" : "Special edition · price 5 knuts"}
+          </p>
           <LangToggle lang={lang} />
         </div>
       </div>
+
+      {/* Название издания */}
+      <div className="mx-auto max-w-6xl px-4 pb-3 pt-5 text-center sm:px-6">
+        <Link href="/" className="inline-block">
+          <span className="block font-[family-name:var(--font-display)] text-[1.7rem] font-bold uppercase leading-none tracking-[0.09em] text-ink sm:text-[2.6rem]">
+            Harry Potter Explorer
+          </span>
+          <span className="mt-1.5 block font-[family-name:var(--font-label)] text-[0.6rem] uppercase tracking-[0.32em] text-faint sm:text-[0.68rem]">
+            {t.tagline}
+          </span>
+        </Link>
+      </div>
+
+      {/* Рубрики */}
+      <nav
+        aria-label={t.nav.home}
+        className="rule-double border-t border-rule-strong bg-paper"
+      >
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <ul className="flex items-center justify-start gap-0 overflow-x-auto py-1.5 [scrollbar-width:none] sm:justify-center [&::-webkit-scrollbar]:hidden">
+            {links.map((link, index) => (
+              <li key={link.href} className="flex shrink-0 items-center">
+                {index > 0 && (
+                  <span aria-hidden className="mx-0 h-3 w-px bg-[var(--rule)]" />
+                )}
+                <Link
+                  href={link.href}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  className={`px-3 py-1 font-[family-name:var(--font-label)] text-[0.74rem] font-bold uppercase tracking-[0.13em] transition-colors ${
+                    isActive(link.href)
+                      ? "text-seal underline decoration-2 underline-offset-[6px]"
+                      : "text-soft hover:text-ink"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
     </header>
   );
 }

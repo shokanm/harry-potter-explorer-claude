@@ -30,94 +30,76 @@ export default async function HomePage() {
   ];
 
   return (
-    <div>
-      {/* --- Герой --- */}
-      <section className="relative overflow-hidden">
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 60% at 50% -10%, rgba(201,162,39,0.20), transparent 70%)",
-          }}
-        />
-        <div className="relative mx-auto max-w-6xl px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-28">
-          <div className="max-w-2xl">
-            <p className="kicker ink-in">{t.home.heroKicker}</p>
-            <h1
-              className="ink-in mt-4 text-5xl leading-[1.05] sm:text-6xl"
-              style={{ animationDelay: "80ms" }}
-            >
-              <span className="gilded">{t.home.heroTitle}</span>
-            </h1>
-            <p
-              className="ink-in mt-6 text-lg leading-relaxed text-muted"
-              style={{ animationDelay: "160ms" }}
-            >
-              {t.home.heroSubtitle}
-            </p>
+    <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      {/* ── Первая полоса ─────────────────────────────────── */}
+      <section className="press-in border-b border-rule-strong py-10 sm:py-14">
+        <p className="kicker text-center">{t.home.heroKicker}</p>
 
-            <div className="ink-in mt-9 flex flex-wrap gap-3" style={{ animationDelay: "240ms" }}>
-              <Link href="/characters" className="seal">
-                {t.home.heroCta}
-              </Link>
-              <Link href="/sorting-hat" className="seal-ghost">
-                {t.home.heroSecondary}
-              </Link>
-            </div>
-          </div>
+        <h1 className="mx-auto mt-4 max-w-4xl text-center text-[2.7rem] leading-[0.98] sm:text-[4.2rem]">
+          {t.home.heroTitle}
+        </h1>
 
-          {/* --- Цифры --- */}
-          <dl className="ink-in mt-16 grid grid-cols-2 gap-3 sm:grid-cols-4" style={{ animationDelay: "320ms" }}>
-            {stats.map((stat) => (
-              <Link key={stat.label} href={stat.href} className="card card-hover px-5 py-4">
-                <dt className="text-xs uppercase tracking-wider text-faint">{stat.label}</dt>
-                <dd className="mt-1 font-[family-name:var(--font-display)] text-3xl text-gold">
-                  {stat.value}
-                </dd>
-              </Link>
-            ))}
-          </dl>
+        <div className="mx-auto mt-8 max-w-3xl">
+          <p className="dropcap text-[1.12rem] leading-relaxed text-ink">{t.home.heroSubtitle}</p>
         </div>
+
+        <div className="mt-9 flex flex-wrap justify-center gap-3">
+          <Link href="/characters" className="stamp">
+            {t.home.heroCta}
+          </Link>
+          <Link href="/sorting-hat" className="stamp-ghost">
+            {t.home.heroSecondary}
+          </Link>
+        </div>
+
+        {/* Цифры выпуска — как справка в подвале полосы. */}
+        <dl className="mt-10 grid grid-cols-2 border border-rule sm:grid-cols-4">
+          {stats.map((stat) => (
+            <Link
+              key={stat.label}
+              href={stat.href}
+              className="notice-hover border-b border-r border-rule px-5 py-4 text-center last:border-r-0 sm:border-b-0 [&:nth-child(2)]:border-r-0 sm:[&:nth-child(2)]:border-r"
+            >
+              <dd className="font-[family-name:var(--font-display)] text-[2.4rem] font-bold leading-none text-ink">
+                {stat.value}
+              </dd>
+              <dt className="mt-1.5 font-[family-name:var(--font-label)] text-[0.68rem] uppercase tracking-[0.14em] text-faint">
+                {stat.label}
+              </dt>
+            </Link>
+          ))}
+        </dl>
       </section>
 
-      {/* --- Факультеты --- */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="rule text-3xl">{t.home.housesTitle}</h2>
-        <p className="mt-4 max-w-2xl text-muted">{t.home.housesSubtitle}</p>
+      {/* ── Факультеты ────────────────────────────────────── */}
+      <section className="py-12">
+        <h2 className="rule-hair text-3xl sm:text-4xl">{t.home.housesTitle}</h2>
+        <p className="mt-4 max-w-2xl text-soft">{t.home.housesSubtitle}</p>
 
-        <div className="mt-9 grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
           {HOUSES.map((house) => (
             <Link
               key={house.slug}
               href={`/houses/${house.slug}`}
-              className="card card-hover group relative overflow-hidden p-5"
+              className="notice notice-hover p-5"
+              style={{ background: house.colors.wash }}
             >
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-50 transition-opacity group-hover:opacity-80"
-                style={{
-                  background: `radial-gradient(ellipse 90% 80% at 50% 120%, ${house.colors.primary}44, transparent 70%)`,
-                }}
-              />
-              <div className="relative">
-                <span style={{ color: house.colors.secondary }}>
-                  <HouseCrest house={house.slug} className="h-12 w-12" />
-                </span>
-                <h3 className="mt-3 font-[family-name:var(--font-display)] text-lg text-ink">
-                  {house.name[lang]}
-                </h3>
-                <p className="mt-1 text-xs" style={{ color: house.colors.ink }}>
-                  {house.animal[lang]} · {house.element[lang]}
-                </p>
-              </div>
+              <span style={{ color: house.colors.onPaper }}>
+                <HouseCrest house={house.slug} className="h-11 w-11" />
+              </span>
+              <h3 className="mt-3 text-[1.3rem]" style={{ color: house.colors.onPaper }}>
+                {house.name[lang]}
+              </h3>
+              <p className="caption mt-1">
+                {house.animal[lang]} · {house.element[lang]}
+              </p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* --- Живой счётчик --- */}
-      <section className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+      {/* ── Живая сводка ──────────────────────────────────── */}
+      <section className="pb-12">
         <LiveSorting
           initial={{ total: tally.total, byHouse: tally.byHouse, persistent: tally.persistent }}
           lang={lang}
@@ -125,22 +107,22 @@ export default async function HomePage() {
         />
       </section>
 
-      {/* --- Знакомые лица --- */}
-      <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+      {/* ── Знакомые лица ─────────────────────────────────── */}
+      <section className="pb-14">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="rule text-3xl">{t.home.featuredTitle}</h2>
-            <p className="mt-4 max-w-xl text-muted">{t.home.featuredSubtitle}</p>
+            <h2 className="rule-hair text-3xl sm:text-4xl">{t.home.featuredTitle}</h2>
+            <p className="mt-4 max-w-xl text-soft">{t.home.featuredSubtitle}</p>
           </div>
           <Link
             href="/characters"
-            className="text-sm text-muted underline decoration-dotted underline-offset-4 hover:text-gold"
+            className="font-[family-name:var(--font-label)] text-[0.76rem] font-bold uppercase tracking-[0.12em] text-seal underline underline-offset-4"
           >
             {t.home.heroCta} →
           </Link>
         </div>
 
-        <div className="mt-9">
+        <div className="mt-8">
           <CharacterGrid characters={toPublicList(featured)} lang={lang} t={t} priorityCount={5} />
         </div>
       </section>

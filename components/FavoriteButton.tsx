@@ -20,10 +20,10 @@ export function FavoriteButton({
   const star = (
     <svg
       viewBox="0 0 24 24"
-      className="h-[1.1em] w-[1.1em]"
+      className="h-[1.05em] w-[1.05em]"
       fill={active ? "currentColor" : "none"}
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="1.6"
       strokeLinejoin="round"
       aria-hidden
     >
@@ -37,7 +37,7 @@ export function FavoriteButton({
         type="button"
         onClick={() => toggle(id)}
         aria-pressed={active}
-        className={`seal-ghost ${active ? "text-gold" : ""}`}
+        className={`stamp-ghost w-full justify-center ${active ? "text-seal" : ""}`}
       >
         {star}
         {label}
@@ -57,10 +57,10 @@ export function FavoriteButton({
       aria-pressed={active}
       aria-label={label}
       title={label}
-      className={`grid h-8 w-8 place-items-center rounded-full border backdrop-blur-sm transition-colors ${
+      className={`grid h-7 w-7 place-items-center border transition-colors ${
         active
-          ? "border-gold/60 bg-[rgba(12,9,6,0.75)] text-gold"
-          : "border-line bg-[rgba(12,9,6,0.6)] text-muted hover:border-line-strong hover:text-ink"
+          ? "border-seal bg-paper-white text-seal"
+          : "border-rule bg-paper-white/85 text-faint hover:border-rule-strong hover:text-ink"
       }`}
     >
       {star}

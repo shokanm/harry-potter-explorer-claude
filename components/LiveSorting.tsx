@@ -73,15 +73,15 @@ export function LiveSorting({
   const max = Math.max(1, ...Object.values(tally.byHouse));
 
   return (
-    <div className="card p-6 sm:p-8">
-      <div className="flex flex-wrap items-baseline justify-between gap-3">
+    <div className="notice p-6 sm:p-8">
+      <div className="rule-double flex flex-wrap items-baseline justify-between gap-3 pb-3">
         <div>
-          <h2 className="font-[family-name:var(--font-display)] text-2xl">{t.home.liveTitle}</h2>
-          <p className="mt-2 text-sm text-muted">{t.home.liveSubtitle}</p>
+          <p className="kicker">{t.home.liveTitle}</p>
+          <p className="mt-2 text-sm text-soft">{t.home.liveSubtitle}</p>
         </div>
-        <span className="inline-flex items-center gap-2 text-xs text-faint">
+        <span className="inline-flex items-center gap-2 font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.12em] text-faint">
           <span
-            className={`h-1.5 w-1.5 rounded-full ${live ? "pulse-dot bg-[#7fd4a0]" : "bg-[var(--text-faint)]"}`}
+            className={`h-1.5 w-1.5 rounded-full ${live ? "pulse-dot bg-seal" : "bg-[var(--ink-faint)]"}`}
             aria-hidden
           />
           {tally.total} {t.home.liveTotal}
@@ -89,7 +89,7 @@ export function LiveSorting({
       </div>
 
       {tally.total === 0 ? (
-        <p className="mt-8 text-sm text-faint">{t.home.liveEmpty}</p>
+        <p className="caption mt-8">{t.home.liveEmpty}</p>
       ) : (
         <ul className="mt-7 space-y-3.5">
           {HOUSES.map((house) => {
@@ -97,22 +97,22 @@ export function LiveSorting({
             const share = Math.round((count / max) * 100);
 
             return (
-              <li key={house.slug} className="flex items-center gap-4">
-                <span className="w-24 shrink-0 text-sm sm:w-28" style={{ color: house.colors.ink }}>
+              <li key={house.slug} className="flex items-center gap-4 border-b border-rule pb-3 last:border-0">
+                <span
+                  className="w-24 shrink-0 font-[family-name:var(--font-label)] text-[0.78rem] font-bold uppercase tracking-[0.08em] sm:w-28"
+                  style={{ color: house.colors.onPaper }}
+                >
                   {house.name[lang]}
                 </span>
-                <span className="h-2 flex-1 overflow-hidden rounded-full bg-[rgba(255,255,255,0.05)]">
+                <span className="h-2.5 flex-1 border border-rule bg-paper">
                   <span
-                    className="block h-full rounded-full transition-[width] duration-700 ease-out"
-                    style={{
-                      width: `${share}%`,
-                      background: `linear-gradient(90deg, ${house.colors.primary}, ${house.colors.secondary})`,
-                    }}
+                    className="block h-full transition-[width] duration-700 ease-out"
+                    style={{ width: `${share}%`, background: house.colors.onPaper }}
                   />
                 </span>
                 <span
-                  className={`w-8 shrink-0 text-right text-sm tabular-nums transition-colors ${
-                    bumped === house.slug ? "text-gold" : "text-muted"
+                  className={`w-8 shrink-0 text-right font-[family-name:var(--font-display)] text-lg font-bold tabular-nums transition-colors ${
+                    bumped === house.slug ? "text-seal" : "text-ink"
                   }`}
                 >
                   {count}
@@ -124,7 +124,7 @@ export function LiveSorting({
       )}
 
       {!tally.persistent && tally.total > 0 && (
-        <p className="mt-6 text-[0.72rem] leading-relaxed text-faint">
+        <p className="caption mt-6">
           {lang === "ru"
             ? "Счёт временный: база не подключена, поэтому он живёт только до перезапуска сервера."
             : "Temporary tally: no database connected, so it lives only until the server restarts."}

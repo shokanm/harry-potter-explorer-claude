@@ -81,43 +81,33 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
     <div
       style={
         house
-          ? ({
-              "--house-primary": house.colors.primary,
-              "--house-secondary": house.colors.secondary,
-              "--house-ink": house.colors.ink,
-            } as React.CSSProperties)
+          ? ({ "--house-ink": house.colors.onPaper } as React.CSSProperties)
           : undefined
       }
     >
       <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-12">
         <Link
           href="/characters"
-          className="text-xs text-muted underline decoration-dotted underline-offset-4 hover:text-gold"
+          className="font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.12em] text-soft underline decoration-dotted underline-offset-4 hover:text-seal"
         >
           ← {t.character.backToCatalog}
         </Link>
 
         <div className="mt-6 grid gap-8 sm:grid-cols-[minmax(0,15rem)_1fr] sm:gap-10">
           {/* --- Портрет --- */}
-          <div className="ink-in">
-            <div className="card relative aspect-[3/4] overflow-hidden">
+          <div className="press-in">
+            <div className="notice relative aspect-[4/5] overflow-hidden">
               <Portrait character={character} size={480} priority />
               {house && (
                 <div
                   aria-hidden
                   className="absolute inset-x-0 bottom-0 h-1"
-                  style={{
-                    background: `linear-gradient(90deg, ${house.colors.primary}, ${house.colors.secondary})`,
-                  }}
+                  style={{ background: house.colors.onPaper }}
                 />
               )}
             </div>
 
-            {!character.hasImage && (
-              <p className="mt-2 text-[0.7rem] leading-snug text-faint">
-                {t.character.generatedPortrait}
-              </p>
-            )}
+            {!character.hasImage && <p className="caption mt-2">{t.character.generatedPortrait}</p>}
 
             <div className="mt-4">
               <FavoriteButton
@@ -130,12 +120,12 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
           </div>
 
           {/* --- Досье --- */}
-          <div className="ink-in" style={{ animationDelay: "90ms" }}>
-            <h1 className="text-3xl sm:text-4xl">{character.name}</h1>
+          <div className="press-in" style={{ animationDelay: "90ms" }}>
+            <h1 className="text-4xl sm:text-5xl">{character.name}</h1>
 
             {character.alternateNames.length > 0 && (
-              <p className="mt-2 text-sm text-muted">
-                <span className="text-faint">{t.character.alternateNames}:</span>{" "}
+              <p className="mt-2 text-[0.95rem] italic text-soft">
+                <span className="not-italic text-faint">{t.character.alternateNames}:</span>{" "}
                 {character.alternateNames.join(", ")}
               </p>
             )}
@@ -144,28 +134,26 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
               {house ? (
                 <Link
                   href={`/houses/${house.slug}`}
-                  className="rounded-full border px-3 py-1 text-xs transition-colors hover:opacity-80"
-                  style={{ borderColor: house.colors.secondary, color: house.colors.ink }}
+                  className="tag transition-opacity hover:opacity-75"
+                  style={{ background: house.colors.wash, color: house.colors.onPaper }}
                 >
                   {house.name[lang]}
                 </Link>
               ) : (
-                <span className="rounded-full border border-line px-3 py-1 text-xs text-faint">
-                  {t.character.houseless}
-                </span>
+                <span className="tag border border-rule text-faint">{t.character.houseless}</span>
               )}
 
-              <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">
+              <span className="tag border border-rule text-soft">
                 {character.alive ? t.character.alive : t.character.dead}
               </span>
 
               {character.role !== "other" && (
-                <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">
+                <span className="tag border border-rule text-soft">
                   {character.role === "staff" ? t.character.staff : t.character.student}
                 </span>
               )}
 
-              <span className="rounded-full border border-line px-3 py-1 text-xs text-muted">
+              <span className="tag border border-rule text-soft">
                 {character.wizard ? t.character.wizard : t.character.muggle}
               </span>
             </div>
@@ -173,9 +161,11 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
             {/* Известные поля */}
             <dl className="mt-7 grid gap-x-8 gap-y-3 sm:grid-cols-2">
               {known.map((fact) => (
-                <div key={fact.label} className="border-b border-line pb-3">
-                  <dt className="text-[0.7rem] uppercase tracking-wider text-faint">{fact.label}</dt>
-                  <dd className="mt-1 text-sm text-ink">{fact.value}</dd>
+                <div key={fact.label} className="border-b border-rule pb-3">
+                  <dt className="font-[family-name:var(--font-label)] text-[0.68rem] uppercase tracking-[0.12em] text-faint">
+                    {fact.label}
+                  </dt>
+                  <dd className="mt-1 text-[0.98rem] text-ink">{fact.value}</dd>
                 </div>
               ))}
             </dl>
@@ -185,15 +175,17 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
               в источнике нет. Пустая карточка перестаёт выглядеть как ошибка
               приложения и становится фактом о самих данных.
             */}
-            <div className="card mt-7 p-4">
+            <div className="notice mt-7 p-4">
               <div className="flex items-baseline justify-between gap-3">
-                <span className="text-[0.7rem] uppercase tracking-wider text-faint">
+                <span className="font-[family-name:var(--font-label)] text-[0.68rem] uppercase tracking-[0.12em] text-faint">
                   {t.character.completeness}
                 </span>
-                <span className="text-sm text-gold">{percent}%</span>
+                <span className="font-[family-name:var(--font-display)] text-lg font-bold text-seal">
+                  {percent}%
+                </span>
               </div>
               <div
-                className="mt-2 h-1.5 overflow-hidden rounded-full bg-[rgba(255,255,255,0.06)]"
+                className="mt-2 h-2 border border-rule bg-paper"
                 role="progressbar"
                 aria-valuenow={percent}
                 aria-valuemin={0}
@@ -201,20 +193,18 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
                 aria-label={t.character.completeness}
               >
                 <div
-                  className="h-full rounded-full"
+                  className="h-full"
                   style={{
                     width: `${percent}%`,
-                    background: house
-                      ? `linear-gradient(90deg, ${house.colors.primary}, ${house.colors.secondary})`
-                      : "linear-gradient(90deg, var(--ember), var(--gold))",
+                    background: house ? house.colors.onPaper : "var(--seal)",
                   }}
                 />
               </div>
-              <p className="mt-2.5 text-[0.72rem] leading-relaxed text-faint">
+              <p className="caption mt-2.5">
                 {t.character.completenessHint}
               </p>
               {missing.length > 0 && (
-                <p className="mt-2 text-[0.72rem] text-faint">
+                <p className="caption mt-2">
                   {t.common.notFound}: {missing.map((fact) => fact.label.toLowerCase()).join(", ")}
                 </p>
               )}
@@ -224,7 +214,7 @@ export default async function CharacterPage({ params }: { params: Promise<{ id: 
 
         {/* --- Разговор --- */}
         <section className="mt-14">
-          <h2 className="rule text-2xl">{t.character.chatTitle}</h2>
+          <h2 className="rule-hair text-3xl">{t.character.chatTitle}</h2>
           <div className="mt-6">
             <PortraitChat
               characterId={character.id}

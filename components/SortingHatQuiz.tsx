@@ -97,42 +97,29 @@ export function SortingHatQuiz({
 
     return (
       <div
-        className="card ink-in relative overflow-hidden p-8 sm:p-12"
-        style={
-          {
-            "--house-primary": meta.colors.primary,
-            "--house-ink": meta.colors.ink,
-          } as React.CSSProperties
-        }
+        className="notice press-in relative overflow-hidden p-8 sm:p-12"
+        style={{ background: meta.colors.wash }}
       >
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse 80% 90% at 50% 0%, ${meta.colors.primary}55, transparent 70%)`,
-          }}
-        />
-
         <div className="relative text-center">
           <p className="kicker">{t.sortingHat.share}</p>
 
-          <span className="mt-6 inline-block" style={{ color: meta.colors.secondary }}>
-            <HouseCrest house={house} className="h-28 w-28" />
+          <span className="mt-6 inline-block" style={{ color: meta.colors.onPaper }}>
+            <HouseCrest house={house} className="h-24 w-24" />
           </span>
 
-          <h2 className="mt-4 font-[family-name:var(--font-display)] text-4xl sm:text-5xl">
+          <h2 className="mt-3 text-5xl sm:text-6xl" style={{ color: meta.colors.onPaper }}>
             {meta.name[lang]}
           </h2>
 
           <div className="mx-auto mt-8 max-w-xl text-left">
             {silent ? (
-              <p className="text-sm leading-relaxed text-faint">{t.sortingHat.offline}</p>
+              <p className="caption">{t.sortingHat.offline}</p>
             ) : (
-              <p className="whitespace-pre-wrap text-lg italic leading-relaxed text-muted">
+              <p className="whitespace-pre-wrap border-t border-rule-strong pt-6 text-[1.08rem] leading-relaxed text-ink">
                 {speech}
                 {!speech && (
-                  <span className="inline-flex items-center gap-2 not-italic text-sm text-faint">
-                    <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-gold" />
+                  <span className="inline-flex items-center gap-2 text-sm text-faint">
+                    <span className="pulse-dot h-1.5 w-1.5 rounded-full bg-seal" />
                     {t.sortingHat.thinking}
                   </span>
                 )}
@@ -140,13 +127,13 @@ export function SortingHatQuiz({
             )}
           </div>
 
-          {persisted && <p className="mt-8 text-xs text-faint">{t.sortingHat.saved}</p>}
+          {persisted && <p className="caption mt-8">{t.sortingHat.saved}</p>}
 
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link href={`/houses/${house}`} className="seal">
+            <Link href={`/houses/${house}`} className="stamp">
               {t.houses.open}
             </Link>
-            <button type="button" onClick={restart} className="seal-ghost">
+            <button type="button" onClick={restart} className="stamp-ghost">
               {t.sortingHat.again}
             </button>
           </div>
@@ -158,9 +145,9 @@ export function SortingHatQuiz({
   // --- Ожидание вердикта ---
   if (stage === "thinking") {
     return (
-      <div className="card px-8 py-20 text-center">
-        <span className="pulse-dot mx-auto block h-2 w-2 rounded-full bg-gold" aria-hidden />
-        <p className="mt-6 font-[family-name:var(--font-display)] text-xl text-muted">
+      <div className="notice px-8 py-20 text-center">
+        <span className="pulse-dot mx-auto block h-2 w-2 rounded-full bg-seal" aria-hidden />
+        <p className="mt-6 font-[family-name:var(--font-display)] text-2xl text-soft">
           {t.sortingHat.thinking}
         </p>
       </div>
@@ -169,23 +156,21 @@ export function SortingHatQuiz({
 
   // --- Опрос ---
   return (
-    <div className="card p-6 sm:p-9">
+    <div className="notice p-6 sm:p-9">
       <div className="flex items-center gap-4">
-        <span className="text-xs uppercase tracking-widest text-faint">
+        <span className="kicker shrink-0">
           {t.sortingHat.question} {step + 1} {t.common.of} {questions.length}
         </span>
-        <span className="h-1 flex-1 overflow-hidden rounded-full bg-[rgba(255,255,255,0.06)]">
+        <span className="h-[3px] flex-1 bg-[var(--rule)]">
           <span
-            className="block h-full rounded-full bg-gradient-to-r from-[var(--ember)] to-[var(--gold)] transition-[width] duration-500"
+            className="block h-full bg-seal transition-[width] duration-500"
             style={{ width: `${progress}%` }}
           />
         </span>
       </div>
 
-      <h2 className="mt-8 font-[family-name:var(--font-display)] text-2xl leading-snug sm:text-3xl">
-        {question.text[lang]}
-      </h2>
-      <p className="mt-3 text-xs text-faint">{t.sortingHat.chooseHint}</p>
+      <h2 className="mt-7 text-3xl leading-tight sm:text-4xl">{question.text[lang]}</h2>
+      <p className="caption mt-3">{t.sortingHat.chooseHint}</p>
 
       <ul className="mt-7 space-y-2.5">
         {question.options.map((option) => (
@@ -193,7 +178,7 @@ export function SortingHatQuiz({
             <button
               type="button"
               onClick={() => void choose(option.id)}
-              className="w-full rounded-[var(--radius-sm)] border border-line bg-surface px-5 py-4 text-left text-[0.98rem] leading-snug text-ink transition-all hover:-translate-y-0.5 hover:border-gold/60 hover:bg-[rgba(201,162,39,0.07)]"
+              className="w-full border border-rule bg-paper px-5 py-4 text-left text-[1.02rem] leading-snug text-ink transition-colors hover:border-ink hover:bg-paper-deep"
             >
               {option.text[lang]}
             </button>

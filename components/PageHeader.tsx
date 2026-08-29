@@ -10,10 +10,10 @@ export function PageHeader({
   children?: React.ReactNode;
 }) {
   return (
-    <header className="ink-in">
+    <header className="press-in">
       {kicker && <p className="kicker">{kicker}</p>}
-      <h1 className="rule mt-2 text-3xl sm:text-4xl">{title}</h1>
-      {subtitle && <p className="mt-4 max-w-2xl text-muted">{subtitle}</p>}
+      <h1 className="rule-hair mt-2 text-4xl sm:text-5xl">{title}</h1>
+      {subtitle && <p className="mt-4 max-w-2xl text-[1.05rem] leading-relaxed text-soft">{subtitle}</p>}
       {children}
     </header>
   );

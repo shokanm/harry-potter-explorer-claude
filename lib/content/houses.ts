@@ -23,10 +23,14 @@ export interface House {
     label: Localized;
     primary: string;
     secondary: string;
-    /** Мягкий фон под тему страницы. */
-    tint: string;
-    /** Контрастный цвет текста поверх primary. */
-    ink: string;
+    /**
+     * Цвет для краски по бумаге: тот же геральдический тон, но гарантированно
+     * читаемый на светлом. Жёлтый Пуффендуя на газетной бумаге исчезает,
+     * поэтому для печати у него отдельная охра.
+     */
+    onPaper: string;
+    /** Очень светлая заливка того же тона — для подложек и плашек. */
+    wash: string;
   };
 }
 
@@ -64,8 +68,8 @@ export const HOUSES: House[] = [
       label: { ru: "Алый и золотой", en: "Scarlet and gold" },
       primary: "#7f0909",
       secondary: "#d3a625",
-      tint: "#2a0a0a",
-      ink: "#ffd970",
+      onPaper: "#7f0909",
+      wash: "rgba(127, 9, 9, 0.07)",
     },
   },
   {
@@ -100,9 +104,9 @@ export const HOUSES: House[] = [
     colors: {
       label: { ru: "Изумрудный и серебряный", en: "Emerald and silver" },
       primary: "#1a472a",
-      secondary: "#aaaaaa",
-      tint: "#0a1f14",
-      ink: "#7fd4a0",
+      secondary: "#8a8a8a",
+      onPaper: "#1a472a",
+      wash: "rgba(26, 71, 42, 0.07)",
     },
   },
   {
@@ -138,8 +142,8 @@ export const HOUSES: House[] = [
       label: { ru: "Синий и бронзовый", en: "Blue and bronze" },
       primary: "#0e1a40",
       secondary: "#946b2d",
-      tint: "#080f26",
-      ink: "#8fb0ff",
+      onPaper: "#0e1a40",
+      wash: "rgba(14, 26, 64, 0.07)",
     },
   },
   {
@@ -175,8 +179,8 @@ export const HOUSES: House[] = [
       label: { ru: "Жёлтый и чёрный", en: "Yellow and black" },
       primary: "#ecb939",
       secondary: "#372e29",
-      tint: "#2b2113",
-      ink: "#ffd86b",
+      onPaper: "#8a6410",
+      wash: "rgba(138, 100, 16, 0.09)",
     },
   },
 ];

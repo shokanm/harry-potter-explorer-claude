@@ -6,8 +6,8 @@ import type { Character } from "@/lib/types";
  *
  * Фотография есть у 25 персонажей из 437. Ставить остальным одинаковый серый
  * прямоугольник — значит превратить каталог в кладбище заглушек, поэтому
- * каждому персонажу рисуется собственный портрет в раме: цвет выводится из его
- * id, монограмма — из имени, а существам вместо букв достаётся свой знак.
+ * каждому рисуется собственная гравюра: монограмма в наборной рамке,
+ * краской по бумаге. Существам вместо букв достаётся свой знак.
  *
  * Всё детерминировано: один и тот же персонаж выглядит одинаково на сервере,
  * на клиенте и после перезагрузки. Никакой случайности и никаких запросов.
@@ -43,15 +43,15 @@ const SPECIES_SIGILS: Record<string, string> = {
 };
 
 export interface PortraitStyle {
-  /** Верхний цвет фона рамы. */
-  from: string;
-  /** Нижний цвет фона рамы. */
-  to: string;
-  /** Цвет монограммы и внутреннего канта. */
+  /** Тон бумаги под гравюрой — слегка разный, чтобы соседние клише не сливались. */
+  paper: string;
+  /** Цвет краски: тон факультета либо обычная типографская. */
   ink: string;
-  /** Что писать в центре: инициалы или знак существа. */
+  /** Плотность штриховки фона, 0..1. */
+  hatch: number;
+  /** Что печатать в центре: инициалы или знак существа. */
   glyph: string;
-  /** Знак существа шире букв — рисуем другим кеглем. */
+  /** Знак существа шире букв — набираем другим кеглем. */
   isSigil: boolean;
 }
 
@@ -71,48 +71,23 @@ function initials(name: string): string {
   return (words[0][0] + words[words.length - 1][0]).toUpperCase();
 }
 
-export function portraitStyle(character: Pick<Character, "name" | "house" | "species" | "portraitSeed">): PortraitStyle {
+export function portraitStyle(
+  character: Pick<Character, "name" | "house" | "species" | "portraitSeed">,
+): PortraitStyle {
   const seed = character.portraitSeed;
   const house = character.house ? HOUSE_BY_SLUG[character.house] : null;
-
   const species = (character.species ?? "").toLowerCase();
   const sigil = SPECIES_SIGILS[species];
 
-  if (house) {
-    // Свои цвета факультета, слегка разведённые по светлоте — чтобы соседние
-    // карточки одного факультета не сливались в одно пятно.
-    const shift = Math.round(channel(seed, 1) * 12) - 6;
-    return {
-      // Цвет факультета приглушается почти вдвое: карточки должны читаться
-      // как портреты в полумраке галереи, а не как цветные плашки рядом
-      // с настоящими фотографиями.
-      from: shiftLightness(house.colors.tint, shift + 6),
-      to: shiftLightness(house.colors.primary, shift - 52),
-      ink: house.colors.ink,
-      glyph: sigil ?? initials(character.name),
-      isSigil: Boolean(sigil),
-    };
-  }
+  // Бумага чуть плавает по светлоте: полоса из одинаковых клише выглядит мёртвой.
+  const lightness = 92 + Math.round(channel(seed, 1) * 5);
+  const paper = `hsl(43 30% ${lightness}%)`;
 
-  // Беспризорные персонажи получают приглушённый пергаментно-ночной оттенок.
-  const hue = Math.round(channel(seed, 2) * 360);
   return {
-    from: `hsl(${hue} 22% 16%)`,
-    to: `hsl(${(hue + 28) % 360} 26% 9%)`,
-    ink: `hsl(${hue} 45% 72%)`,
+    paper,
+    ink: house ? house.colors.onPaper : "#14120e",
+    hatch: 0.05 + channel(seed, 3) * 0.06,
     glyph: sigil ?? initials(character.name),
     isSigil: Boolean(sigil),
   };
-}
-
-/** Сдвиг светлоты hex-цвета в процентных пунктах. Нужен, чтобы разводить оттенки. */
-function shiftLightness(hex: string, delta: number): string {
-  const normalized = hex.replace("#", "");
-  if (normalized.length !== 6) return hex;
-  const r = parseInt(normalized.slice(0, 2), 16);
-  const g = parseInt(normalized.slice(2, 4), 16);
-  const b = parseInt(normalized.slice(4, 6), 16);
-  const factor = 1 + delta / 100;
-  const clamp = (v: number) => Math.max(0, Math.min(255, Math.round(v * factor)));
-  return `#${[clamp(r), clamp(g), clamp(b)].map((v) => v.toString(16).padStart(2, "0")).join("")}`;
 }

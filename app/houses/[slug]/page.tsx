@@ -51,43 +51,32 @@ export default async function HousePage({ params }: { params: Promise<{ slug: st
       // элементы просто читают переменные и не знают, о каком факультете речь.
       style={
         {
-          "--house-primary": house.colors.primary,
-          "--house-secondary": house.colors.secondary,
-          "--house-ink": house.colors.ink,
-          "--house-tint": house.colors.tint,
+          "--house-ink": house.colors.onPaper,
+          "--house-tint": house.colors.wash,
         } as React.CSSProperties
       }
     >
       {/* --- Шапка --- */}
-      <div className="relative overflow-hidden border-b border-line">
-        <div
-          aria-hidden
-          className="absolute inset-0"
-          style={{
-            background: `radial-gradient(ellipse 80% 100% at 50% 0%, ${house.colors.primary}66, transparent 72%)`,
-          }}
-        />
-        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+      <div className="border-b-[3px] border-double border-rule-strong" style={{ background: house.colors.wash }}>
+        <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
           <Link
             href="/houses"
-            className="text-xs text-muted underline decoration-dotted underline-offset-4 hover:text-house-ink"
+            className="font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.12em] text-soft underline decoration-dotted underline-offset-4 hover:text-house"
           >
             ← {t.nav.houses}
           </Link>
 
           <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-center">
-            <span className="shrink-0 text-house-2">
+            <span className="shrink-0 text-house">
               <HouseCrest house={house.slug} className="h-24 w-24 sm:h-28 sm:w-28" />
             </span>
 
             <div>
-              <h1 className="font-[family-name:var(--font-display)] text-4xl sm:text-5xl">
-                {house.name[lang]}
-              </h1>
-              <p className="mt-2 text-sm uppercase tracking-[0.2em] text-house-ink">
-                {house.colors.label[lang]}
+              <h1 className="text-5xl text-house sm:text-6xl">{house.name[lang]}</h1>
+              <p className="tag mt-1 !px-0 text-house">{house.colors.label[lang]}</p>
+              <p className="mt-5 max-w-2xl font-[family-name:var(--font-display)] text-[1.3rem] italic leading-snug text-ink">
+                «{house.motto[lang]}»
               </p>
-              <p className="mt-5 max-w-2xl text-lg italic text-muted">«{house.motto[lang]}»</p>
             </div>
           </div>
         </div>
@@ -96,34 +85,31 @@ export default async function HousePage({ params }: { params: Promise<{ slug: st
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
         <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr]">
           <div>
-            <p className="text-lg leading-relaxed">{house.description[lang]}</p>
+            <p className="dropcap text-[1.08rem] leading-relaxed">{house.description[lang]}</p>
 
-            <div className="card mt-8 p-6">
+            <div className="notice mt-8 p-6" style={{ background: house.colors.wash }}>
               <h2 className="kicker">{t.houses.lore}</h2>
-              <p className="mt-3 leading-relaxed text-muted">{house.lore[lang]}</p>
+              <p className="mt-3 leading-relaxed text-ink">{house.lore[lang]}</p>
             </div>
           </div>
 
-          <div className="card h-fit p-6">
-            <dl className="divide-y divide-[var(--border)]">
+          <div className="notice h-fit p-6">
+            <dl className="divide-y divide-[var(--rule)]">
               {facts.map((fact) => (
                 <div key={fact.label} className="flex gap-4 py-3 first:pt-0 last:pb-0">
-                  <dt className="w-28 shrink-0 text-xs uppercase tracking-wider text-faint">
+                  <dt className="w-28 shrink-0 font-[family-name:var(--font-label)] text-[0.7rem] uppercase tracking-[0.1em] text-faint">
                     {fact.label}
                   </dt>
-                  <dd className="text-sm text-ink">{fact.value}</dd>
+                  <dd className="text-[0.95rem] text-ink">{fact.value}</dd>
                 </div>
               ))}
               <div className="flex gap-4 py-3 last:pb-0">
-                <dt className="w-28 shrink-0 text-xs uppercase tracking-wider text-faint">
+                <dt className="w-28 shrink-0 font-[family-name:var(--font-label)] text-[0.7rem] uppercase tracking-[0.1em] text-faint">
                   {t.houses.traits}
                 </dt>
                 <dd className="flex flex-wrap gap-1.5">
                   {house.traits[lang].map((trait) => (
-                    <span
-                      key={trait}
-                      className="rounded-full border border-line-strong px-2.5 py-0.5 text-xs text-house-ink"
-                    >
+                    <span key={trait} className="border border-rule-strong px-2 py-0.5 text-[0.8rem] text-house">
                       {trait}
                     </span>
                   ))}
@@ -135,14 +121,14 @@ export default async function HousePage({ params }: { params: Promise<{ slug: st
 
         {/* --- Состав --- */}
         <section className="mt-16">
-          <h2 className="rule text-2xl">{t.houses.members}</h2>
-          <p className="mt-3 text-sm text-muted">
+          <h2 className="rule-hair text-3xl">{t.houses.members}</h2>
+          <p className="caption mt-3">
             {members.length} {t.houses.membersCount}
           </p>
 
           <div className="mt-8">
             {members.length === 0 ? (
-              <p className="card px-6 py-12 text-center text-muted">{t.houses.membersEmpty}</p>
+              <p className="notice px-6 py-12 text-center text-soft">{t.houses.membersEmpty}</p>
             ) : (
               <CharacterGrid
                 characters={toPublicList(members)}

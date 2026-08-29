@@ -1,23 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Cinzel, EB_Garamond } from "next/font/google";
+import { Old_Standard_TT, PT_Sans_Narrow, PT_Serif } from "next/font/google";
 
-import { Candles } from "@/components/Candles";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { getDict } from "@/lib/i18n/server";
 
 import "./globals.css";
 
-const display = Cinzel({
+/**
+ * Гарнитуры подобраны под газетную полосу и, что важнее, все три умеют
+ * кириллицу: интерфейс русский по умолчанию, и «красивый шрифт без русских
+ * букв» здесь не вариант.
+ */
+const display = Old_Standard_TT({
   variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
-const body = EB_Garamond({
+const body = PT_Serif({
   variable: "--font-body",
   subsets: ["latin", "cyrillic"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+const label = PT_Sans_Narrow({
+  variable: "--font-label",
+  subsets: ["latin", "cyrillic"],
+  weight: ["400", "700"],
   display: "swap",
 });
 
@@ -38,19 +52,18 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0c0906",
-  colorScheme: "dark",
+  themeColor: "#f4f0e6",
+  colorScheme: "light",
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const { lang, t } = await getDict();
 
   return (
-    <html lang={lang} className={`${display.variable} ${body.variable} h-full`}>
-      <body className="flex min-h-full flex-col">
-        <Candles />
+    <html lang={lang} className={`${display.variable} ${body.variable} ${label.variable}`}>
+      <body className="flex min-h-screen flex-col">
         <SiteHeader lang={lang} t={t} />
-        <main className="relative z-10 flex-1">{children}</main>
+        <main className="flex-1">{children}</main>
         <SiteFooter t={t} />
       </body>
     </html>

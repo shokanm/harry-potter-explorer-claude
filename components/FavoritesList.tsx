@@ -40,12 +40,12 @@ export function FavoritesList({ lang, t }: { lang: Lang; t: Dictionary }) {
 
   if (ids.length === 0) {
     return (
-      <div className="card px-6 py-20 text-center">
-        <p className="font-[family-name:var(--font-display)] text-xl text-ink">
+      <div className="notice px-6 py-20 text-center">
+        <p className="font-[family-name:var(--font-display)] text-3xl text-ink">
           {t.favorites.empty}
         </p>
-        <p className="mt-3 text-sm text-muted">{t.favorites.emptyHint}</p>
-        <Link href="/characters" className="seal mt-7">
+        <p className="mt-3 text-soft">{t.favorites.emptyHint}</p>
+        <Link href="/characters" className="stamp mt-7">
           {t.home.heroCta}
         </Link>
       </div>
@@ -54,9 +54,9 @@ export function FavoritesList({ lang, t }: { lang: Lang; t: Dictionary }) {
 
   if (items === null) {
     return (
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
         {Array.from({ length: 5 }).map((_, index) => (
-          <div key={index} className="skeleton aspect-[3/4] rounded-[var(--radius)]" />
+          <div key={index} className="skeleton aspect-[4/5] border border-rule" />
         ))}
       </div>
     );
@@ -66,14 +66,14 @@ export function FavoritesList({ lang, t }: { lang: Lang; t: Dictionary }) {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-4 border-b border-line pb-3">
-        <p className="text-sm text-muted">
+      <div className="rule-double mb-6 flex items-center justify-between gap-4 pb-2">
+        <p className="font-[family-name:var(--font-label)] text-[0.78rem] uppercase tracking-[0.12em] text-soft">
           <span className="text-ink">{visible.length}</span> {t.favorites.count}
         </p>
         <button
           type="button"
           onClick={clear}
-          className="text-xs text-faint underline decoration-dotted underline-offset-4 hover:text-[#d98a6a]"
+          className="font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.1em] text-faint underline decoration-dotted underline-offset-4 hover:text-seal"
         >
           {t.favorites.clear}
         </button>

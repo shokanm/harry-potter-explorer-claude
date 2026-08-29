@@ -173,11 +173,13 @@ export function CharacterCatalog({
 
   const update = (patch: Partial<CatalogFilters>) => setFilters((prev) => ({ ...prev, ...patch }));
 
+  // Фильтры набраны как рубрики в газете: узкий гротеск капителью,
+  // выбранное подчёркнуто краской, а не залито цветом.
   const chip = (active: boolean) =>
-    `rounded-full border px-3 py-1.5 text-xs transition-colors ${
+    `border px-2.5 py-1 font-[family-name:var(--font-label)] text-[0.72rem] font-bold uppercase tracking-[0.1em] transition-colors ${
       active
-        ? "border-gold/60 bg-[rgba(201,162,39,0.14)] text-gold"
-        : "border-line text-muted hover:border-line-strong hover:text-ink"
+        ? "border-ink bg-ink text-paper"
+        : "border-rule text-soft hover:border-rule-strong hover:text-ink"
     }`;
 
   return (
@@ -187,7 +189,7 @@ export function CharacterCatalog({
         <svg
           aria-hidden
           viewBox="0 0 24 24"
-          className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-faint"
+          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint"
           fill="none"
           stroke="currentColor"
           strokeWidth="1.7"
@@ -201,7 +203,7 @@ export function CharacterCatalog({
           onChange={(event) => update({ q: event.target.value })}
           placeholder={t.characters.searchPlaceholder}
           aria-label={t.common.search}
-          className="w-full rounded-full border border-line bg-surface py-3 pl-11 pr-4 text-ink outline-none transition-colors placeholder:text-faint focus:border-gold/60"
+          className="w-full border border-rule-strong bg-paper-white py-2.5 pl-10 pr-4 text-ink outline-none transition-colors placeholder:text-faint focus:border-seal"
         />
       </div>
 
@@ -218,7 +220,7 @@ export function CharacterCatalog({
             className={chip(filters.house === house.slug)}
             style={
               filters.house === house.slug
-                ? { borderColor: house.colors.secondary, color: house.colors.ink }
+                ? { borderColor: house.colors.onPaper, background: house.colors.onPaper }
                 : undefined
             }
           >
@@ -226,7 +228,7 @@ export function CharacterCatalog({
           </button>
         ))}
 
-        <span aria-hidden className="mx-1 h-4 w-px bg-[var(--border)]" />
+        <span aria-hidden className="mx-1 h-4 w-px bg-[var(--rule-strong)]" />
 
         <button
           type="button"
@@ -257,13 +259,13 @@ export function CharacterCatalog({
           {t.characters.filterImage}
         </button>
 
-        <span aria-hidden className="mx-1 h-4 w-px bg-[var(--border)]" />
+        <span aria-hidden className="mx-1 h-4 w-px bg-[var(--rule-strong)]" />
 
         <select
           value={filters.species}
           onChange={(event) => update({ species: event.target.value })}
           aria-label={t.characters.filterSpecies}
-          className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs text-muted outline-none focus:border-gold/60"
+          className="border border-rule bg-paper-white px-2 py-1 font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.08em] text-soft outline-none focus:border-seal"
         >
           <option value="">{t.characters.filterSpecies}: {t.common.all}</option>
           {facets.species.map((item) => (
@@ -277,7 +279,7 @@ export function CharacterCatalog({
           value={filters.sort}
           onChange={(event) => update({ sort: event.target.value })}
           aria-label={t.characters.sort}
-          className="rounded-full border border-line bg-surface px-3 py-1.5 text-xs text-muted outline-none focus:border-gold/60"
+          className="border border-rule bg-paper-white px-2 py-1 font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.08em] text-soft outline-none focus:border-seal"
         >
           <option value="relevance">{t.characters.sortRelevance}</option>
           <option value="name">{t.characters.sortName}</option>
@@ -287,7 +289,7 @@ export function CharacterCatalog({
           <button
             type="button"
             onClick={() => setFilters(EMPTY_FILTERS)}
-            className="rounded-full px-3 py-1.5 text-xs text-faint underline decoration-dotted underline-offset-4 hover:text-gold"
+            className="px-2 py-1 font-[family-name:var(--font-label)] text-[0.72rem] uppercase tracking-[0.1em] text-faint underline decoration-dotted underline-offset-4 hover:text-seal"
           >
             {t.characters.reset}
           </button>
@@ -295,8 +297,8 @@ export function CharacterCatalog({
       </div>
 
       {/* --- Строка состояния --- */}
-      <div className="mt-5 flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3">
-        <p className="text-sm text-muted">
+      <div className="rule-double mt-5 flex flex-wrap items-baseline justify-between gap-3 pb-2">
+        <p className="font-[family-name:var(--font-label)] text-[0.78rem] uppercase tracking-[0.12em] text-soft">
           {t.characters.found}: <span className="text-ink">{total}</span> {t.characters.results}
         </p>
         <DataSourceBadge source={source} t={t} />
@@ -305,15 +307,15 @@ export function CharacterCatalog({
       {/* --- Результаты --- */}
       <div className="mt-6">
         {items.length === 0 && !loading ? (
-          <div className="card px-6 py-16 text-center">
-            <p className="font-[family-name:var(--font-display)] text-lg text-ink">
+          <div className="notice px-6 py-16 text-center">
+            <p className="font-[family-name:var(--font-display)] text-2xl text-ink">
               {t.characters.noResults}
             </p>
-            <p className="mt-2 text-sm text-muted">{t.characters.noResultsHint}</p>
+            <p className="mt-2 text-sm text-soft">{t.characters.noResultsHint}</p>
             <button
               type="button"
               onClick={() => setFilters(EMPTY_FILTERS)}
-              className="seal-ghost mt-6"
+              className="stamp-ghost mt-6"
             >
               {t.characters.reset}
             </button>
@@ -323,20 +325,20 @@ export function CharacterCatalog({
         )}
 
         {loading && (
-          <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+          <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
             {Array.from({ length: 5 }).map((_, index) => (
-              <div key={index} className="skeleton aspect-[3/4] rounded-[var(--radius)]" />
+              <div key={index} className="skeleton aspect-[4/5] border border-rule" />
             ))}
           </div>
         )}
 
         {failed && (
-          <div className="card mt-4 px-5 py-4 text-center text-sm">
-            <p className="text-muted">{t.common.error}</p>
+          <div className="notice mt-4 px-5 py-4 text-center text-sm">
+            <p className="text-soft">{t.common.error}</p>
             <button
               type="button"
               onClick={() => void load(filters, page, false)}
-              className="seal-ghost mt-3"
+              className="stamp-ghost mt-3"
             >
               {t.common.retry}
             </button>
@@ -346,7 +348,7 @@ export function CharacterCatalog({
         <div ref={sentinel} aria-hidden className="h-px" />
 
         {!hasMore && items.length > 0 && (
-          <p className="mt-10 text-center text-sm text-faint">{t.characters.end}</p>
+          <p className="caption mt-10 text-center">— {t.characters.end} —</p>
         )}
       </div>
     </div>

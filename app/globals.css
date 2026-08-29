@@ -1,63 +1,58 @@
 @import "tailwindcss";
 
 /*
-  Тема: ночь в Хогвартсе.
+  Оформление: «Ежедневный пророк».
 
-  Приложение сознательно только тёмное. Светлая версия «пергамент днём»
-  выглядела бы честнее по отношению к системным настройкам, но атмосфера —
-  половина этого продукта, а свечи не горят при дневном свете. Компромисс
-  осознанный и описан в README.
+  Приложение выглядит как выпуск волшебной газеты: типографская краска на
+  газетной бумаге, волосные линейки, буквицы, колонки и рубрики капителью.
+  Цветные пятна допущены ровно в одном месте — там, где говорят о факультетах.
+
+  Светлая тема здесь не «тема», а сам предмет: газету печатают на бумаге,
+  и переключателя на тёмную не предусмотрено сознательно.
 */
 
 :root {
-  /* Основа */
-  --bg: #0c0906;
-  --bg-deep: #070503;
-  --surface: #16100a;
-  --surface-raised: #1f170e;
-  --border: rgba(201, 162, 39, 0.16);
-  --border-strong: rgba(201, 162, 39, 0.34);
+  /* Бумага */
+  --paper: #f4f0e6;
+  --paper-deep: #e9e2d1;
+  --paper-white: #fbf9f4;
 
-  /* Текст */
-  --text: #ece0c6;
-  --text-muted: #a8977a;
-  --text-faint: #6f6250;
+  /* Краска */
+  --ink: #14120e;
+  --ink-soft: #4a4437;
+  --ink-faint: #837a64;
 
-  /* Акценты */
-  --gold: #c9a227;
-  --gold-bright: #e8c96b;
-  --ember: #b4531f;
-  --parchment: #efe3c8;
+  /* Линейки */
+  --rule: rgba(20, 18, 14, 0.16);
+  --rule-strong: rgba(20, 18, 14, 0.44);
+
+  /* Акцент — сургучная печать */
+  --seal: #7a1f1a;
+  --seal-bright: #9c2a22;
 
   /* Цвета факультета — переопределяются на страницах факультетов */
-  --house-primary: var(--gold);
-  --house-secondary: var(--ember);
-  --house-ink: var(--parchment);
-  --house-tint: var(--surface);
+  --house-ink: var(--seal);
+  --house-tint: rgba(122, 31, 26, 0.08);
 
-  --radius: 14px;
-  --radius-sm: 9px;
+  --radius: 2px;
 }
 
 @theme inline {
-  --color-bg: var(--bg);
-  --color-bg-deep: var(--bg-deep);
-  --color-surface: var(--surface);
-  --color-surface-raised: var(--surface-raised);
-  --color-line: var(--border);
-  --color-line-strong: var(--border-strong);
-  --color-ink: var(--text);
-  --color-muted: var(--text-muted);
-  --color-faint: var(--text-faint);
-  --color-gold: var(--gold);
-  --color-ember: var(--ember);
-  --color-parchment: var(--parchment);
-  --color-house: var(--house-primary);
-  --color-house-2: var(--house-secondary);
-  --color-house-ink: var(--house-ink);
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-paper-white: var(--paper-white);
+  --color-ink: var(--ink);
+  --color-soft: var(--ink-soft);
+  --color-faint: var(--ink-faint);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
+  --color-seal: var(--seal);
+  --color-seal-bright: var(--seal-bright);
+  --color-house: var(--house-ink);
 
-  --font-display: var(--font-display), "Iowan Old Style", "Palatino Linotype", Palatino, serif;
-  --font-body: var(--font-body), "Iowan Old Style", Georgia, serif;
+  --font-display: var(--font-display), "Times New Roman", Times, serif;
+  --font-body: var(--font-body), Georgia, serif;
+  --font-label: var(--font-label), "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -69,29 +64,25 @@ html {
 }
 
 body {
-  background-color: var(--bg);
-  color: var(--text);
+  background-color: var(--paper);
+  color: var(--ink);
   font-family: var(--font-body), Georgia, serif;
   font-size: 17px;
-  line-height: 1.6;
+  line-height: 1.62;
   -webkit-font-smoothing: antialiased;
 
   /*
-    Фон — не картинка, а три радиальных градиента: свет из-под свечей вверху
-    и тёплое пятно снизу. Ноль байт трафика и никакого сдвига макета.
+    Зернистость бумаги. Генерируется фильтром в SVG прямо в CSS: ни одного
+    байта трафика и никакой картинки, которую пришлось бы грузить.
   */
-  background-image:
-    radial-gradient(ellipse 60% 40% at 50% -8%, rgba(201, 162, 39, 0.13), transparent 70%),
-    radial-gradient(ellipse 45% 35% at 12% 8%, rgba(180, 83, 31, 0.09), transparent 70%),
-    radial-gradient(ellipse 70% 50% at 88% 100%, rgba(201, 162, 39, 0.06), transparent 70%);
-  background-attachment: fixed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
 }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-display), Palatino, serif;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  line-height: 1.15;
+  font-family: var(--font-display), Times, serif;
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.012em;
   text-wrap: balance;
 }
 
@@ -100,154 +91,169 @@ p {
 }
 
 ::selection {
-  background: var(--gold);
-  color: #1a1206;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 :focus-visible {
-  outline: 2px solid var(--gold);
-  outline-offset: 3px;
-  border-radius: 4px;
+  outline: 2px solid var(--seal);
+  outline-offset: 2px;
 }
 
-/* --- Повторяющиеся детали оформления --- */
+/* ── Типографские детали ───────────────────────────────────── */
 
-.card {
-  background: linear-gradient(180deg, var(--surface-raised), var(--surface));
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+/* Рубрика над заголовком: узкий гротеск капителью, как надзаголовок в газете. */
+.kicker {
+  font-family: var(--font-label), sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--seal);
 }
 
-.card-hover {
-  transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+/* Двойная линейка — граница шапки и разделов. */
+.rule-double {
+  border-bottom: 3px double var(--rule-strong);
 }
 
-.card-hover:hover {
-  border-color: var(--border-strong);
-  transform: translateY(-3px);
-  box-shadow: 0 14px 34px -18px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(201, 162, 39, 0.08);
-}
-
-/* Тонкая золотая линейка под заголовками разделов. */
-.rule::after {
+/* Волосная линейка под заголовком раздела. */
+.rule-hair::after {
   content: "";
   display: block;
-  width: 68px;
-  height: 2px;
-  margin-top: 14px;
-  background: linear-gradient(90deg, var(--gold), transparent);
+  height: 1px;
+  margin-top: 12px;
+  background: var(--rule-strong);
 }
 
-.gilded {
-  background: linear-gradient(135deg, #f3dc9a, var(--gold) 45%, #8a6d16);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+/*
+  Буквица. Оформляем через ::first-letter, а не отдельным элементом:
+  так текст остаётся цельным для копирования и для скринридера.
+*/
+.dropcap::first-letter {
+  float: left;
+  font-family: var(--font-display), serif;
+  font-size: 3.9em;
+  line-height: 0.82;
+  font-weight: 700;
+  margin: 0.06em 0.09em 0 0;
+  color: var(--seal);
 }
 
-/* Кнопка-печать: основной призыв к действию. */
-.seal {
+/* Заметка в рамке — основной контейнер вместо карточек с тенями. */
+.notice {
+  background: var(--paper-white);
+  border: 1px solid var(--rule);
+}
+
+.notice-hover {
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.notice-hover:hover {
+  border-color: var(--rule-strong);
+  background: var(--paper-deep);
+}
+
+/* Кнопка-штамп: прямоугольная, краской по бумаге. */
+.stamp {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 999px;
-  font-family: var(--font-display), serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  background: linear-gradient(160deg, #d8b23a, #9c7a17);
-  color: #1a1206;
-  border: 1px solid rgba(255, 233, 170, 0.45);
-  box-shadow: 0 8px 22px -12px rgba(201, 162, 39, 0.8);
-  transition: filter 160ms ease, transform 160ms ease;
-}
-
-.seal:hover {
-  filter: brightness(1.08);
-  transform: translateY(-1px);
-}
-
-.seal-ghost {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 999px;
-  font-family: var(--font-display), serif;
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  border: 1px solid var(--border-strong);
-  color: var(--text);
-  transition: background 160ms ease, border-color 160ms ease;
-}
-
-.seal-ghost:hover {
-  background: rgba(201, 162, 39, 0.09);
-  border-color: var(--gold);
-}
-
-/* Мелкая подпись-рубрика над заголовками. */
-.kicker {
-  font-family: var(--font-display), serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  gap: 0.5rem;
+  padding: 0.62rem 1.3rem;
+  font-family: var(--font-label), sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold);
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  transition: background-color 140ms ease, color 140ms ease;
 }
 
-/* --- Свечи --- */
-
-.candle {
-  position: fixed;
-  width: 3px;
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(255, 226, 150, 0.5), rgba(201, 162, 39, 0));
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.55;
-  filter: blur(0.3px);
-  animation: float-candle 9s ease-in-out infinite;
+.stamp:hover {
+  background: var(--seal);
+  border-color: var(--seal);
 }
 
-.candle::before {
-  content: "";
-  position: absolute;
-  top: -7px;
-  left: 50%;
-  width: 9px;
-  height: 12px;
-  transform: translateX(-50%);
-  border-radius: 50% 50% 45% 45%;
-  background: radial-gradient(circle at 50% 65%, #fff3c4, #f0b93a 55%, rgba(240, 150, 40, 0));
-  filter: blur(0.4px);
-  animation: flicker 2.6s ease-in-out infinite;
+.stamp-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.62rem 1.3rem;
+  font-family: var(--font-label), sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  border: 1px solid var(--rule-strong);
+  transition: background-color 140ms ease, border-color 140ms ease;
 }
 
-@keyframes float-candle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-16px); }
+.stamp-ghost:hover {
+  background: var(--paper-deep);
+  border-color: var(--ink);
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 0.95; transform: translateX(-50%) scaleY(1); }
-  45% { opacity: 0.7; transform: translateX(-50%) scaleY(0.88); }
-  70% { opacity: 1; transform: translateX(-50%) scaleY(1.06); }
+/* Подпись под иллюстрацией — как в газете, мелким гротеском. */
+.caption {
+  font-family: var(--font-label), sans-serif;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  color: var(--ink-faint);
 }
 
-/* Проявляющиеся чернила: появление блоков при загрузке. */
-@keyframes ink-in {
-  from { opacity: 0; transform: translateY(10px); }
+/* Ярлык рубрики: краска навыворот. */
+.tag {
+  display: inline-block;
+  padding: 0.12rem 0.5rem;
+  font-family: var(--font-label), sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/*
+  Фотографии в газете печатались растром в одну краску. Тот же приём:
+  снимок обесцвечивается и подкрашивается тоном бумаги, отчего перестаёт
+  спорить с текстом и выглядит частью полосы.
+*/
+.halftone {
+  filter: grayscale(1) contrast(1.08) sepia(0.32) brightness(1.02);
+  mix-blend-mode: multiply;
+}
+
+/* Многоколоночный текст для длинных описаний. */
+.columns-news {
+  column-count: 2;
+  column-gap: 2.4rem;
+  column-rule: 1px solid var(--rule);
+}
+
+@media (max-width: 640px) {
+  .columns-news {
+    column-count: 1;
+  }
+}
+
+/* ── Движение ──────────────────────────────────────────────── */
+
+/* Проявление свежей краски: блоки набегают при загрузке. */
+@keyframes press-in {
+  from { opacity: 0; transform: translateY(8px); }
   to { opacity: 1; transform: none; }
 }
 
-.ink-in {
-  animation: ink-in 620ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
+.press-in {
+  animation: press-in 480ms cubic-bezier(0.2, 0.7, 0.3, 1) both;
 }
 
-/* Мерцание индикатора живого счётчика. */
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  50% { opacity: 0.3; }
 }
 
 .pulse-dot {
@@ -260,15 +266,11 @@ p {
 }
 
 .skeleton {
-  background: linear-gradient(90deg, var(--surface) 25%, var(--surface-raised) 50%, var(--surface) 75%);
+  background: linear-gradient(90deg, var(--paper-deep) 25%, var(--paper-white) 50%, var(--paper-deep) 75%);
   background-size: 420px 100%;
   animation: shimmer 1.4s linear infinite;
 }
 
-/*
-  Уважение к системной настройке: всё, что двигается ради атмосферы,
-  замирает. Свечи остаются — но перестают летать и мигать.
-*/
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -280,13 +282,11 @@ p {
   }
 }
 
-/* Скрываем нативный крестик очистки в поле поиска — рисуем свой. */
 input[type="search"]::-webkit-search-cancel-button {
   appearance: none;
 }
 
-/* Тонкий скроллбар в тон. */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(201, 162, 39, 0.3) transparent;
+  scrollbar-color: var(--rule-strong) transparent;
 }

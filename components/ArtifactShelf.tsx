@@ -6,11 +6,12 @@ import type { Artifact, ArtifactCategory } from "@/lib/content/artifacts";
 import type { Dictionary } from "@/lib/i18n/dict";
 import type { Lang, Localized } from "@/lib/i18n/types";
 
+/** Тона разделов — краской по бумаге, поэтому все тёмные. */
 const CATEGORY_TONE: Record<ArtifactCategory, string> = {
-  hallow: "#cbb6e8",
-  horcrux: "#c2452a",
-  hogwarts: "#d6a93f",
-  object: "#6fb3c9",
+  hallow: "#4a3a6b",
+  horcrux: "#8f1d12",
+  hogwarts: "#8a6410",
+  object: "#1c5060",
 };
 
 /** Шкала опасности: пять делений, заполненные — тревожным цветом раздела. */
@@ -21,8 +22,11 @@ function DangerMeter({ level, label, tone }: { level: number; label: string; ton
         <span
           key={index}
           aria-hidden
-          className="h-1 w-3.5 rounded-full"
-          style={{ background: index < level ? tone : "rgba(255,255,255,0.09)" }}
+          className="h-2.5 w-2 border"
+          style={{
+            background: index < level ? tone : "transparent",
+            borderColor: index < level ? tone : "var(--rule-strong)",
+          }}
         />
       ))}
     </span>
@@ -46,10 +50,10 @@ export function ArtifactShelf({
   const filtered = active ? artifacts.filter((item) => item.category === active) : artifacts;
 
   const chip = (isActive: boolean) =>
-    `rounded-full border px-3 py-1.5 text-xs transition-colors ${
+    `border px-2.5 py-1 font-[family-name:var(--font-label)] text-[0.72rem] font-bold uppercase tracking-[0.1em] transition-colors ${
       isActive
-        ? "border-gold/60 bg-[rgba(201,162,39,0.14)] text-gold"
-        : "border-line text-muted hover:border-line-strong hover:text-ink"
+        ? "border-ink bg-ink text-paper"
+        : "border-rule text-soft hover:border-rule-strong hover:text-ink"
     }`;
 
   return (
@@ -66,7 +70,7 @@ export function ArtifactShelf({
             className={chip(active === category.key)}
             style={
               active === category.key
-                ? { borderColor: CATEGORY_TONE[category.key], color: CATEGORY_TONE[category.key] }
+                ? { borderColor: CATEGORY_TONE[category.key], background: CATEGORY_TONE[category.key] }
                 : undefined
             }
           >
@@ -81,41 +85,39 @@ export function ArtifactShelf({
           const isOpen = opened === artifact.slug;
 
           return (
-            <li key={artifact.slug} className="card overflow-hidden">
+            <li key={artifact.slug} className="notice">
               <div className="flex gap-4 p-5">
                 <span
                   aria-hidden
-                  className="grid h-12 w-12 shrink-0 place-items-center rounded-full border text-xl"
-                  style={{ borderColor: `${tone}55`, color: tone }}
+                  className="grid h-12 w-12 shrink-0 place-items-center border text-xl"
+                  style={{ borderColor: tone, color: tone }}
                 >
                   {artifact.sigil}
                 </span>
 
                 <div className="min-w-0 flex-1">
-                  {/* h2, а не h3: список идёт сразу под h1 страницы. */}
-                  <h2 className="font-[family-name:var(--font-display)] text-lg text-ink">
-                    {artifact.name[lang]}
-                  </h2>
-                  <p className="mt-0.5 text-[0.68rem] uppercase tracking-widest" style={{ color: tone }}>
+                  <p className="tag" style={{ color: tone }}>
                     {categories.find((c) => c.key === artifact.category)?.label[lang]}
                   </p>
+                  {/* h2, а не h3: список идёт сразу под h1 страницы. */}
+                  <h2 className="mt-1 text-[1.4rem] text-ink">{artifact.name[lang]}</h2>
 
-                  <p className="mt-3 text-sm leading-relaxed text-muted">
+                  <p className="mt-2.5 text-[0.95rem] leading-relaxed text-soft">
                     {artifact.description[lang]}
                   </p>
 
                   <dl className="mt-4 space-y-1.5 text-xs">
                     <div className="flex gap-2">
-                      <dt className="w-20 shrink-0 text-faint">{t.artifacts.owner}</dt>
-                      <dd className="text-muted">{artifact.owner[lang]}</dd>
+                      <dt className="w-20 shrink-0 font-[family-name:var(--font-label)] uppercase tracking-[0.08em] text-faint">{t.artifacts.owner}</dt>
+                      <dd className="text-soft">{artifact.owner[lang]}</dd>
                     </div>
                     <div className="flex gap-2">
-                      <dt className="w-20 shrink-0 text-faint">{t.artifacts.firstSeen}</dt>
-                      <dd className="text-muted">{artifact.firstSeen[lang]}</dd>
+                      <dt className="w-20 shrink-0 font-[family-name:var(--font-label)] uppercase tracking-[0.08em] text-faint">{t.artifacts.firstSeen}</dt>
+                      <dd className="text-soft">{artifact.firstSeen[lang]}</dd>
                     </div>
                     <div className="flex items-center gap-2">
-                      <dt className="w-20 shrink-0 text-faint">{t.artifacts.danger}</dt>
-                      <dd className="flex items-center gap-2 text-muted">
+                      <dt className="w-20 shrink-0 font-[family-name:var(--font-label)] uppercase tracking-[0.08em] text-faint">{t.artifacts.danger}</dt>
+                      <dd className="flex items-center gap-2 text-soft">
                         <DangerMeter
                           level={artifact.danger}
                           label={t.artifacts.danger}
@@ -132,9 +134,9 @@ export function ArtifactShelf({
                 type="button"
                 onClick={() => setOpened(isOpen ? null : artifact.slug)}
                 aria-expanded={isOpen}
-                className="flex w-full items-center justify-between gap-3 border-t border-line px-5 py-3 text-left text-xs text-muted transition-colors hover:text-gold"
+                className="flex w-full items-center justify-between gap-3 border-t border-rule px-5 py-3 text-left font-[family-name:var(--font-label)] text-[0.72rem] font-bold uppercase tracking-[0.12em] text-soft transition-colors hover:text-seal"
               >
-                <span className="uppercase tracking-widest">{t.artifacts.lore}</span>
+                <span>{t.artifacts.lore}</span>
                 <svg
                   viewBox="0 0 24 24"
                   className={`h-4 w-4 shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
@@ -148,7 +150,7 @@ export function ArtifactShelf({
               </button>
 
               {isOpen && (
-                <p className="ink-in border-t border-line bg-bg-deep px-5 py-4 text-sm leading-relaxed text-muted">
+                <p className="press-in border-t border-rule bg-paper-deep px-5 py-4 text-[0.95rem] leading-relaxed text-soft">
                   {artifact.lore[lang]}
                 </p>
               )}

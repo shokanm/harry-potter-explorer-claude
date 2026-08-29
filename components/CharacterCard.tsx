@@ -7,6 +7,12 @@ import type { Dictionary } from "@/lib/i18n/dict";
 import type { Lang } from "@/lib/i18n/types";
 import type { PublicCharacter } from "@/lib/serialize";
 
+/**
+ * Заметка о персонаже.
+ *
+ * Свёрстана как газетная колонка: клише сверху, под ним заголовок, рубрика
+ * факультета и подпись. Никаких скруглений и теней — только волосные линейки.
+ */
 export function CharacterCard({
   character,
   lang,
@@ -32,23 +38,12 @@ export function CharacterCard({
   return (
     <Link
       href={`/characters/${character.id}`}
-      className="card card-hover group relative flex flex-col overflow-hidden"
-      style={
-        house
-          ? ({ "--house-primary": house.colors.primary } as React.CSSProperties)
-          : undefined
-      }
+      className="notice notice-hover group relative flex flex-col"
     >
-      <div className="relative aspect-[3/4] overflow-hidden bg-bg-deep">
+      <div className="relative aspect-[4/5] overflow-hidden border-b border-rule bg-paper-deep">
         <Portrait character={character} size={360} priority={priority} />
 
-        {/* Затемнение снизу, чтобы имя читалось поверх любой фотографии. */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-[rgba(8,6,4,0.96)] via-[rgba(8,6,4,0.55)] to-transparent"
-        />
-
-        <div className="absolute right-2 top-2">
+        <div className="absolute right-1.5 top-1.5">
           <FavoriteButton
             id={character.id}
             addLabel={t.character.addFavorite}
@@ -56,41 +51,34 @@ export function CharacterCard({
           />
         </div>
 
-        {!character.hasImage && (
-          <span className="sr-only">{t.character.generatedPortrait}</span>
-        )}
-
-        <div className="absolute inset-x-0 bottom-0 p-3">
-          <Heading className="font-[family-name:var(--font-display)] text-[0.98rem] leading-tight text-ink">
-            {character.name}
-          </Heading>
-          <p className="mt-1 text-xs text-muted">
-            {house ? house.name[lang] : t.character.houseless}
-          </p>
-        </div>
+        {!character.hasImage && <span className="sr-only">{t.character.generatedPortrait}</span>}
       </div>
 
-      <div className="flex items-center justify-between gap-2 border-t border-line px-3 py-2 text-xs">
-        <span className="truncate text-faint">
+      <div className="flex flex-1 flex-col p-3">
+        {house ? (
+          <span
+            className="tag mb-1.5 self-start"
+            style={{ background: house.colors.wash, color: house.colors.onPaper }}
+          >
+            {house.name[lang]}
+          </span>
+        ) : (
+          <span className="tag mb-1.5 self-start text-faint">{t.character.houseless}</span>
+        )}
+
+        <Heading className="text-[1.02rem] leading-tight text-ink group-hover:text-seal">
+          {character.name}
+        </Heading>
+
+        <p className="caption mt-1.5">
           {character.patronus ? (
             <>
-              <span className="text-muted">{t.character.patronus}:</span> {character.patronus}
+              {t.character.patronus}: <span className="text-soft">{character.patronus}</span>
             </>
           ) : (
-            <span className="text-faint">
-              {character.species ?? t.common.unknown}
-            </span>
+            character.species ?? t.common.unknown
           )}
-        </span>
-        {house && (
-          <span
-            aria-hidden
-            className="h-1.5 w-6 shrink-0 rounded-full"
-            style={{
-              background: `linear-gradient(90deg, ${house.colors.primary}, ${house.colors.secondary})`,
-            }}
-          />
-        )}
+        </p>
       </div>
     </Link>
   );

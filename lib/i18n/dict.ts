@@ -39,8 +39,10 @@ export const DICT = {
     home: {
       heroKicker: "Добро пожаловать",
       heroTitle: "Хогвартс ждёт вас",
+      // Начинается с буквы намеренно: первая литера уходит в буквицу,
+      // и цифра на её месте разорвала бы число пополам.
       heroSubtitle:
-        "437 персонажей, 77 заклинаний, четыре факультета и двадцать один артефакт — собраны, проверены и разложены по местам.",
+        "Здесь собраны 437 персонажей, 77 заклинаний, четыре факультета и двадцать один артефакт — проверенные и разложенные по местам.",
       heroCta: "Открыть каталог",
       heroSecondary: "Пройти распределение",
       statsTitle: "Что внутри",
@@ -244,8 +246,10 @@ export const DICT = {
     home: {
       heroKicker: "Welcome",
       heroTitle: "Hogwarts is expecting you",
+      // Starts with a letter on purpose: the first character becomes a drop cap,
+      // and a digit there would split the number in half.
       heroSubtitle:
-        "437 characters, 77 spells, four houses and twenty-one artifacts — gathered, verified and put in their place.",
+        "Here you will find 437 characters, 77 spells, four houses and twenty-one artifacts — verified and put in their place.",
       heroCta: "Open the catalogue",
       heroSecondary: "Get sorted",
       statsTitle: "What is inside",

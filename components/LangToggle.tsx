@@ -21,23 +21,25 @@ export function LangToggle({ lang }: { lang: Lang }) {
 
   return (
     <div
-      className="flex items-center rounded-full border border-line p-0.5"
+      className="flex items-center gap-1.5"
       role="group"
       aria-label={lang === "ru" ? "Язык интерфейса" : "Interface language"}
       data-pending={pending || undefined}
     >
-      {LANGS.map((code) => (
-        <button
-          key={code}
-          type="button"
-          onClick={() => choose(code)}
-          aria-pressed={code === lang}
-          className={`rounded-full px-2.5 py-1 text-xs uppercase tracking-widest transition-colors ${
-            code === lang ? "bg-gold text-[#1a1206]" : "text-muted hover:text-ink"
-          }`}
-        >
-          {code}
-        </button>
+      {LANGS.map((code, index) => (
+        <span key={code} className="flex items-center gap-1.5">
+          {index > 0 && <span aria-hidden className="h-2.5 w-px bg-[var(--rule-strong)]" />}
+          <button
+            type="button"
+            onClick={() => choose(code)}
+            aria-pressed={code === lang}
+            className={`font-[family-name:var(--font-label)] text-[0.62rem] font-bold uppercase tracking-[0.18em] transition-colors ${
+              code === lang ? "text-seal underline underline-offset-2" : "text-faint hover:text-ink"
+            }`}
+          >
+            {code}
+          </button>
+        </span>
       ))}
     </div>
   );
