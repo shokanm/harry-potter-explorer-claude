@@ -53,7 +53,14 @@ async function getJson<T>(path: string): Promise<T> {
     if (error instanceof Error && error.name === "AbortError") {
       throw new UpstreamError(`hp-api не ответил за ${TIMEOUT_MS} мс (${path})`, error);
     }
-    throw new UpstreamError(`hp-api недоступен (${path})`, error);
+    // Разворачиваем причину: без неё в логах остаётся «недоступен»
+    // без единого намёка на то, что именно случилось.
+    const cause = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+    const nested =
+      error instanceof Error && error.cause instanceof Error
+        ? ` ← ${error.cause.name}: ${error.cause.message}`
+        : "";
+    throw new UpstreamError(`hp-api недоступен (${path}): ${cause}${nested}`, error);
   } finally {
     clearTimeout(timer);
   }
