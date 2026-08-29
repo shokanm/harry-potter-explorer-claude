@@ -35,6 +35,17 @@ const TTL_MS = Number(process.env.DATA_CACHE_TTL_MS ?? 5 * 60 * 1000);
 let charactersCache: Cached<Character[]> | null = null;
 let spellsCache: Cached<Spell[]> | null = null;
 
+/**
+ * Почему очередной слой не сработал. Нужен не для красоты: на боевом стенде
+ * не видно логов функции, и без этого «почему источник = snapshot, когда
+ * hp-api жив» превращается в гадание. Отдаётся через /api/stats.
+ */
+const layerErrors: Record<string, string> = {};
+
+export function getLayerDiagnostics(): Record<string, string> {
+  return { ...layerErrors };
+}
+
 export interface SourcedResult<T> {
   data: T;
   source: DataSourceLayer;
@@ -98,7 +109,9 @@ export async function getCharacters(): Promise<SourcedResult<Character[]>> {
       }
     } catch (error) {
       // Слой не смог — идём к следующему. Молча падать нельзя, но и валиться тоже.
-      console.warn(`[data-source] слой "${source}" недоступен:`, (error as Error).message);
+      const message = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      layerErrors[`characters:${source}`] = message;
+      console.warn(`[data-source] слой "${source}" недоступен:`, message);
     }
   }
 
@@ -124,7 +137,9 @@ export async function getSpells(): Promise<SourcedResult<Spell[]>> {
         return { data, source };
       }
     } catch (error) {
-      console.warn(`[data-source] слой "${source}" недоступен:`, (error as Error).message);
+      const message = error instanceof Error ? `${error.name}: ${error.message}` : String(error);
+      layerErrors[`spells:${source}`] = message;
+      console.warn(`[data-source] слой "${source}" недоступен:`, message);
     }
   }
 
