@@ -3,6 +3,7 @@ import "server-only";
 import { GoogleGenAI } from "@google/genai";
 
 import { HOUSE_BY_SLUG } from "@/lib/content/houses";
+import { envNum, envSet, envStr } from "@/lib/env";
 import type { Lang } from "@/lib/i18n/types";
 import type { Character } from "@/lib/types";
 
@@ -14,10 +15,10 @@ import type { Character } from "@/lib/types";
  * и красноречие тут дешевле скорости не станет.
  */
 
-const MODEL = process.env.GEMINI_MODEL ?? "gemini-3.5-flash-lite";
+const MODEL = envStr("GEMINI_MODEL", "gemini-3.5-flash-lite");
 
 export function isLlmConfigured(): boolean {
-  return Boolean(process.env.GEMINI_API_KEY);
+  return envSet("GEMINI_API_KEY");
 }
 
 let client: GoogleGenAI | null = null;
@@ -35,7 +36,7 @@ export interface ChatTurn {
 }
 
 /** Ответы держим короткими: это и дешевле, и в характере портрета. */
-const MAX_OUTPUT_TOKENS = Number(process.env.GEMINI_MAX_TOKENS ?? 320);
+const MAX_OUTPUT_TOKENS = envNum("GEMINI_MAX_TOKENS", 320);
 
 /** Сколько предыдущих реплик уходит в модель. Ограничивает и стоимость, и объём промпта. */
 export const MAX_HISTORY_TURNS = 10;

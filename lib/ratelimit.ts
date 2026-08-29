@@ -1,5 +1,6 @@
 import "server-only";
 
+import { envStr } from "@/lib/env";
 import { supabaseAdmin } from "@/lib/supabase/server";
 
 /**
@@ -48,7 +49,7 @@ export async function visitorKey(request: Request): Promise<string> {
   const forwarded = request.headers.get("x-forwarded-for") ?? "";
   const ip = forwarded.split(",")[0].trim() || request.headers.get("x-real-ip") || "unknown";
 
-  const salt = process.env.RATE_LIMIT_SALT ?? "hpx";
+  const salt = envStr("RATE_LIMIT_SALT", "hpx");
   const bytes = new TextEncoder().encode(`${salt}:${ip}`);
   const digest = await crypto.subtle.digest("SHA-256", bytes);
   return Array.from(new Uint8Array(digest).slice(0, 12))

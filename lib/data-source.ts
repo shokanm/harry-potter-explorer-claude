@@ -2,6 +2,7 @@ import "server-only";
 
 import charactersSnapshot from "@/data/characters.snapshot.json";
 import spellsSnapshot from "@/data/spells.snapshot.json";
+import { envNum } from "@/lib/env";
 import { fetchCharactersRaw, fetchSpellsRaw } from "@/lib/hp-api";
 import { normalizeCharacters, normalizeSpells } from "@/lib/normalize";
 import { isSupabaseConfigured, supabaseRead } from "@/lib/supabase/server";
@@ -30,7 +31,7 @@ interface Cached<T> {
 }
 
 /** Кэш в памяти процесса: нормализация 437 записей на каждый запрос не нужна. */
-const TTL_MS = Number(process.env.DATA_CACHE_TTL_MS ?? 5 * 60 * 1000);
+const TTL_MS = envNum("DATA_CACHE_TTL_MS", 5 * 60 * 1000);
 
 let charactersCache: Cached<Character[]> | null = null;
 let spellsCache: Cached<Spell[]> | null = null;

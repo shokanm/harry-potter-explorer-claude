@@ -2,6 +2,8 @@ import "server-only";
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
+import { envOrNull } from "@/lib/env";
+
 /**
  * Клиенты Supabase. Оба — серверные.
  *
@@ -11,9 +13,11 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
  * «внешние сервисы только с сервера» выполняется без единого исключения.
  */
 
-const URL = process.env.SUPABASE_URL;
-const ANON_KEY = process.env.SUPABASE_ANON_KEY;
-const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// envOrNull, а не process.env напрямую: переменная, заданная пустой строкой,
+// должна считаться незаданной, иначе createClient получит "" и упадёт.
+const URL = envOrNull("SUPABASE_URL");
+const ANON_KEY = envOrNull("SUPABASE_ANON_KEY");
+const SERVICE_KEY = envOrNull("SUPABASE_SERVICE_ROLE_KEY");
 
 export function isSupabaseConfigured(): boolean {
   return Boolean(URL && ANON_KEY);

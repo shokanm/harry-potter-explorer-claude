@@ -1,5 +1,6 @@
 import "server-only";
 
+import { envNum, envStr } from "@/lib/env";
 import type { RawCharacter } from "@/lib/types";
 
 /**
@@ -10,17 +11,17 @@ import type { RawCharacter } from "@/lib/types";
  * вызываются только с сервера» держится компилятором, а не дисциплиной.
  */
 
-const BASE_URL = process.env.HP_API_BASE_URL ?? "https://hp-api.onrender.com/api";
+const BASE_URL = envStr("HP_API_BASE_URL", "https://hp-api.onrender.com/api");
 
 /**
  * hp-api живёт на бесплатном тарифе Render и после простоя просыпается
  * 30–60 секунд. Ждать столько нельзя — лучше быстро упасть на снапшот,
  * чем показать пользователю крутилку на минуту.
  */
-const TIMEOUT_MS = Number(process.env.HP_API_TIMEOUT_MS ?? 8000);
+const TIMEOUT_MS = envNum("HP_API_TIMEOUT_MS", 8000);
 
 /** Данные меняются раз в никогда — час кэша ISR более чем достаточно. */
-const REVALIDATE_SECONDS = Number(process.env.HP_API_REVALIDATE ?? 3600);
+const REVALIDATE_SECONDS = envNum("HP_API_REVALIDATE", 3600);
 
 export class UpstreamError extends Error {
   constructor(
